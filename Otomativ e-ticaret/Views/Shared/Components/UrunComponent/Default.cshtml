@@ -1,0 +1,25 @@
+﻿@model List<Urun>
+
+@for(int i=0; i<Model.Count; i++){
+    var urun = Model.ElementAt(i);
+    
+    <div class="card">
+            <div class="product_box d-flex flex-column justify-content-center">
+                 <a href="https://localhost:7121/urun/index/@urun.UrunId">
+                    <h4 class="bursh_text">@urun.UrunAdi</h4>
+                    <img src="~/@urun.GorselUrl" />
+                  </a>
+                    <div class="btn_main">
+                        <form asp-controller="sepet" asp-action="sepeteekle">
+                            <input type="hidden" name="UrunId" value="@urun.UrunId">
+                            <input type="hidden" name="miktar" value="1">
+                            <input type="submit" class="sepeteekle" value="Sepete Ekle">
+                        </form>
+                        <div>
+                            @urun.Fiyat TL
+                        </div>
+                    </div>
+            </div>
+    </div>
+}
+<div id="errordiv"></div>

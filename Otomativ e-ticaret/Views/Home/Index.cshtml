@@ -1,0 +1,60 @@
+﻿<div class="product_section layout_padding">
+    <div class="container">
+        
+        <div class="row baslik">
+            <div class="col-sm-12">
+                <h1 class="product_taital">Madeni Yağlar</h1>
+            </div>
+        </div>
+        <div class="products">
+            @await Component.InvokeAsync("UrunComponent", new{category="Madeni yağ", forIndex=true})
+        </div>
+        <div>
+            @await Component.InvokeAsync("ButtonComponent", new{category="Madeni yağ"})
+        </div>
+        <div class="row baslik">
+            <div class="col-sm-12">
+                <h1 class="product_taital">Motor Yağları</h1>
+            </div>
+        </div>
+        <div class="products">
+            @await Component.InvokeAsync("UrunComponent", new{category="Motor Yağı", forIndex=true})
+        </div>
+        <div>
+            @await Component.InvokeAsync("ButtonComponent", new{category="Motor Yağı"})
+        </div>
+        <div class="row baslik">
+            <div class="col-sm-12">
+                <h1 class="product_taital">Traktör Yağları</h1>
+            </div>
+        </div>
+        <div class="products">
+            @await Component.InvokeAsync("UrunComponent", new{category="Traktör Yağı", forIndex=true})
+        </div>
+        <div>
+            @await Component.InvokeAsync("ButtonComponent", new{category="Traktör Yağı"})
+        </div>
+        <div class="row baslik">
+            <div class="col-sm-12">
+                <h1 class="product_taital">Gres Yağları</h1>
+            </div>
+        </div>
+        <div class="products">
+            @await Component.InvokeAsync("UrunComponent", new{category="Gres Yağı", forIndex=true})
+        </div>
+        <div>
+            @await Component.InvokeAsync("ButtonComponent", new{category="Gres Yağı"})
+        </div>
+        <div class="row baslik">
+            <div class="col-sm-12">
+                <h1 class="product_taital">Parçalar</h1>
+            </div>
+        </div>
+        <div class="products">
+            @await Component.InvokeAsync("UrunComponent", new{category="Parça", forIndex=true})
+        </div>
+        <div>
+            @await Component.InvokeAsync("ButtonComponent", new{category="Parça"})
+        </div>
+    </div>
+</div>

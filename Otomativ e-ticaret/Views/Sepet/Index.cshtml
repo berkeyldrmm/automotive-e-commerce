@@ -1,0 +1,8 @@
+﻿@model List<SepetItemDTO>
+
+<div class="container mt-5">
+    <h3 class="ml-5">Sepetim</h3>
+    <div class="sepeturunler mt-4">
+        @await Component.InvokeAsync("SepetComponent",Model)
+    </div>
+</div>

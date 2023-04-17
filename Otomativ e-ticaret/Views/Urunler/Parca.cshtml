@@ -1,0 +1,44 @@
+﻿<div class="container">
+    <partial name="../PartialViews/_SiralaFiltrelePartial.cshtml" model='new { kategori = "parca" }'></partial>
+<div class="row baslik">
+    <div class="col-sm-12">
+            @if (ViewBag.altkategori == null)
+            {
+                <h1 class="product_taital">Parçalar</h1>
+            }
+            else
+            {
+                <h1 class="product_taital">Parçalar - @ViewBag.altkategori</h1>
+            }
+   </div>
+</div>
+<div class="products">
+        @{
+            dynamic data = new System.Dynamic.ExpandoObject();
+            data.category = "Parça";
+            data.forIndex = false;
+            if (ViewBag.enfazla != 0)
+            {
+                data.enaz = ViewBag.enaz;
+                data.enfazla = ViewBag.enfazla;
+            }
+            if (ViewBag.sira != null)
+            {
+                data.sira = ViewBag.sira;
+            }
+            if (ViewBag.altkategori != null)
+            {
+                if (ViewBag.altkategori == "kayis")
+                {
+                    data.altkategori = "Kayış";
+                }
+                else
+                {
+                    data.altkategori = ViewBag.altkategori;
+                }
+            }
+            
+        }
+        @await Component.InvokeAsync("UrunComponent", data)
+    </div>
+</div>

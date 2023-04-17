@@ -1,0 +1,36 @@
+﻿<div id="filterDiv" class="mx-auto mt-5">
+
+    <div>
+        <button class="filtre" id="sirala">
+            Sırala<img src="~/images/sira.png" />
+        </button>
+
+        <div class="d-none" id="siralaListe">
+            <ul>
+                <li><button id="artan">Fiyata göre artan</button></li>
+                <li><button id="azalan">Fiyata göre azalan</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <button class="filtre" id="filtrele">
+        Fiyata göre filtrele <img src="~/images/filtre.png" />
+    </button>
+</div>
+
+<div id="filtreleDiv" class="d-none">
+    <button id="close">&times;</button>
+    <form>   
+        <h3 class="text-decoration-underline text-uppercase">Fiyat: </h3>
+
+        En az: <input type="number" name="enaz" value="10" />
+        En çok: <input type="number" name="enfazla" value="500" />
+        
+        <div class="mt-5 mx-auto">
+            
+            <button id="uygula">Uygula</button>
+        </div>
+    </form>
+</div>
+
+

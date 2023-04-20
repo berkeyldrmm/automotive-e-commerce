@@ -12,12 +12,13 @@ namespace Otomativ_e_ticaret.Controllers
     {
         public SepetDTO sepet { get; set; }
         public SepetManager sepetManager { get; set; }
-        public UrunManager urunManager = new UrunManager(new EfUrun());
+        public UrunManager urunManager { get; set; }
 
         public SepetController(SepetDTO sepet)
         {
             this.sepet = sepet;
-            this.sepetManager = new SepetManager(sepet);
+            sepetManager = new SepetManager(sepet);
+            urunManager = new UrunManager(new EfUrun());
         }
 
         public IActionResult Index()
@@ -35,7 +36,14 @@ namespace Otomativ_e_ticaret.Controllers
         {
             try
             {
-                ValidateMiktar.MiktarValidator(sepetitem, new UrunManager(new EfUrun()));
+                foreach (var sepeturun in sepet.sepetUrunler)
+                {
+                    if (sepeturun.Urun.UrunId == sepetitem.UrunId)
+                    {
+                        return SepetUrunMiktarArttir(sepeturun.Urun.UrunId);
+                    }
+                }
+                var sepetitemDto = new SepetItemDTO() { Urun = urunManager.TItemGetir(sepetitem.UrunId), miktar = int.Parse(sepetitem.miktar) };
                 sepetManager.SepeteEkle(sepetitem);
             }
             catch (Exception err)
@@ -47,13 +55,36 @@ namespace Otomativ_e_ticaret.Controllers
         }
         public IActionResult SepetUrunMiktarArttir(int id)
         {
-            sepetManager.SepetUrunMiktarArttir(id);
+            try
+            {
+                var urun=sepetManager.SepetUrunGetir(id);
+                sepetManager.SepetUrunMiktarArttir(id);
+               
+            }
+            catch (Exception err)
+            {
+                sepetManager.SepetUrunMiktarAzalt(id);
+                TempData["sepeteeklendi"] = err.Message;
+            }
+
             return RedirectToAction("Index");
         }
         public IActionResult SepetUrunMiktarAzalt(int id)
         {
-            sepetManager.SepetUrunMiktarAzalt(id);
+            try
+            {
+                var urun = sepetManager.SepetUrunGetir(id);
+                sepetManager.SepetUrunMiktarAzalt(id);
+
+            }
+            catch (Exception err)
+            {
+                sepetManager.SepetUrunMiktarArttir(id);
+                TempData["sepeteeklendi"] = err.Message;
+            }
+
             return RedirectToAction("Index");
+
         }
         public IActionResult SepetUrunSil(int id)
         {

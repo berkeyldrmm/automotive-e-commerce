@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230402234124_mig-9")]
-    partial class mig9
+    [Migration("20230418231438_mig-1")]
+    partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,24 +69,55 @@ namespace DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Adet")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Adres")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("SiparisMiktari")
+                    b.Property<string>("Isim")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("SiparisZamani")
-                        .HasColumnType("int");
+                    b.Property<string>("Mail")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                    b.Property<string>("UrunId")
+                    b.Property<double>("SiparisTutari")
+                        .HasColumnType("double");
+
+                    b.Property<string>("SiparisZamani")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Soyisim")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TelefonNo")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("SiparisId");
 
                     b.ToTable("Siparisler");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.SiparisUrun", b =>
+                {
+                    b.Property<int>("SiparisId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UrunId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SiparisId", "UrunId");
+
+                    b.HasIndex("UrunId");
+
+                    b.ToTable("SiparisUrun");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Urun", b =>
@@ -127,6 +158,35 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("UrunId");
 
                     b.ToTable("Urunler");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.SiparisUrun", b =>
+                {
+                    b.HasOne("EntityLayer.Concrete.Siparis", "Siparis")
+                        .WithMany("Urunler")
+                        .HasForeignKey("SiparisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EntityLayer.Concrete.Urun", "Urun")
+                        .WithMany("Siparisler")
+                        .HasForeignKey("UrunId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Siparis");
+
+                    b.Navigation("Urun");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Siparis", b =>
+                {
+                    b.Navigation("Urunler");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Urun", b =>
+                {
+                    b.Navigation("Siparisler");
                 });
 #pragma warning restore 612, 618
         }

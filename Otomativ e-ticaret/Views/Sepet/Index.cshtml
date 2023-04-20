@@ -6,3 +6,8 @@
         @await Component.InvokeAsync("SepetComponent",Model)
     </div>
 </div>
+
+@if (ViewBag.sepeteeklendi != null)
+{
+    <partial name="../PartialViews/_ErrorPartial" model="ViewBag.sepeteeklendi"></partial>
+}

@@ -1,17 +1,25 @@
-﻿@model Urun
+﻿@model DTOLayer.DTOs.Sepet.UrunDTO
 <main class="d-flex flex-column justify-content-center align-items-center">
 	
 	<section id="product" class="d-flex flex-column justify-content-center align-items-center mt-4">
 		<div>
-			<img src="~/@Model.GorselUrl" alt="Ürün Adı" height="400" >
+			<img src="~/@ViewBag.urun.GorselUrl" alt="Ürün Adı" height="400" >
 		</div>
-		<h2 class="mt-2">@Model.UrunAdi</h2>
-		<p class="mt-2">@Model.Aciklama</p>
-		<h3 class="mt-2">@Model.Fiyat TL</h3>
+		<h2 class="mt-2">@ViewBag.urun.UrunAdi</h2>
+		<p class="mt-2">@ViewBag.urun.Aciklama</p>
+		<h3 class="mt-2">@ViewBag.urun.Fiyat TL</h3>
 		<form asp-controller="sepet" asp-action="sepeteekle" method="post" class="mt-2">
 			<label for="quantity">Adet:</label>
-			<input type="hidden" name="UrunId" value="@Model.UrunId"/>
-			<input type="number" id="quantity" name="miktar" min="1" max="10" value="1" class="mr-4">
+			<input type="hidden" asp-for="UrunId" name="UrunId" value="@ViewBag.urun.UrunId"/>
+			@{
+				int? max=10;
+				if (ViewBag.urun.Stok<10)
+				{
+					max = @ViewBag.urun.Stok;
+				}
+			}
+			<input type="number" asp-for="miktar" id="quantity" name="miktar" min="1" max=@max value="1" class="mr-4">
+			<span asp-validation-for="miktar"></span>
 			<input type="submit" class="sepeteekle" value="Sepete ekle">
 		</form>
 	</section>

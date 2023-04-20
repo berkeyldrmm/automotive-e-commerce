@@ -21,6 +21,11 @@ namespace DataAccessLayer.Concrete
         {
             optionsBuilder.UseMySql("Server=localhost;Database=otomation;Uid=root;Pwd=Mysqlpassword3444;", new MySqlServerVersion("6.0.0"));
         }
-
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<SiparisUrun>().HasKey(su => new { su.SiparisId, su.UrunId });
+        //    modelBuilder.Entity<SiparisUrun>().HasOne(su => su.Siparis).WithMany(s => s.Urunler).HasForeignKey(su=>su.SiparisId);
+        //    modelBuilder.Entity<SiparisUrun>().HasOne(su => su.Urun).WithMany(u => u.Siparisler).HasForeignKey(su=>su.UrunId);
+        //}
     }
 }

@@ -10,14 +10,14 @@ namespace Otomativ_e_ticaret.ViewComponents
 	{
 		public IViewComponentResult Invoke(List<SepetItemDTO> sepet)
 		{
-			List<Tuple<Urun,int>> sepeturunler=new List<Tuple<Urun,int>>();
-			var urunManager = new UrunManager(new EfUrun());
-			foreach (var urun in sepet)
-			{
-				Urun sepetitem= urunManager.TItemGetir(urun.UrunId);
-                sepeturunler.Add(new Tuple<Urun, int>(sepetitem,Convert.ToInt32(urun.miktar)));
-			}
-			return View(sepeturunler);
+			//List<Tuple<Urun,int>> sepeturunler=new List<Tuple<Urun,int>>();
+			//var urunManager = new UrunManager(new EfUrun());
+			//foreach (var urun in sepet)
+			//{
+			//	Urun sepetitem= urunManager.TItemGetir(urun.UrunId);
+			//	sepeturunler.Add(new Tuple<Urun, int>(sepetitem,Convert.ToInt32(urun.miktar)));
+			//}
+			return View(sepet);
 		}
 	}
 }

@@ -6,7 +6,8 @@ namespace Otomativ_e_ticaret.Controllers
     {
         public IActionResult Index(int id)
         {
-            return View(id);
+            ViewBag.id = id;
+            return View();
         }
     }
 }

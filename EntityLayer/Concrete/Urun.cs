@@ -19,5 +19,6 @@ namespace EntityLayer.Concrete
         public string Kategori { get; set; }
         public string Marka { get; set; }
         public string Aciklama { get; set; }
+        public ICollection<Siparis> Siparisler { get; set; }
     }
 }

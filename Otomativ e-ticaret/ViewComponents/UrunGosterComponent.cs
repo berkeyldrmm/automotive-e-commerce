@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using DTOLayer.DTOs.Sepet;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,8 +15,8 @@ namespace Otomativ_e_ticaret.ViewComponents
         }
         public IViewComponentResult Invoke(int id)
         {
-            var urun = urunManager.TItemGetir(id);
-            return View(urun);
+            ViewBag.urun = urunManager.TItemGetir(id);
+			return View();
         }
     }
 }

@@ -1,4 +1,1 @@
-﻿@model int
-
-@await Component.InvokeAsync("UrunGosterComponent", new{id=Model})
-
+﻿@await Component.InvokeAsync("UrunGosterComponent", new{id=@ViewBag.id})

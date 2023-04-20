@@ -1,4 +1,6 @@
 ﻿using BusinessLayer.Abstract;
+using DataAccessLayer.Entity_Framework;
+using DTOLayer.DTOs.Sepet;
 using EntityLayer.Concrete;
 using Otomativ_e_ticaret.Models;
 using System;
@@ -12,12 +14,17 @@ namespace BusinessLayer.Concrete
     public class SepetManager : ISepetService
     {
         public SepetDTO sepet { get; set; }
+        public UrunManager urunManager { get {
+                return new UrunManager(new EfUrun());
+			} 
+        }
         public SepetManager(SepetDTO sepet) {
             this.sepet=sepet;
         }
-        public void SepeteEkle(int UrunId,string miktar)
+        public void SepeteEkle(UrunDTO sepetitem)
         {
-            var SepetItemDTO = new SepetItemDTO() { UrunId = UrunId, miktar = Convert.ToInt32(miktar) };
+            var urun=urunManager.TItemGetir(sepetitem.UrunId);
+            var SepetItemDTO = new SepetItemDTO() { Urun = urun, miktar = Convert.ToInt32(sepetitem.miktar) };
             sepet.sepetUrunler.Add(SepetItemDTO);
         }
 
@@ -28,27 +35,41 @@ namespace BusinessLayer.Concrete
 
         public void SepettenCikar(int id)
         {
-            SepetItemDTO silinecekurun=sepet.sepetUrunler.SingleOrDefault(sepetItem=>sepetItem.UrunId== id);
+            SepetItemDTO silinecekurun=sepet.sepetUrunler.SingleOrDefault(sepetItem=>sepetItem.Urun.UrunId== id);
             sepet.sepetUrunler.Remove(silinecekurun);
         }
 
         public SepetItemDTO SepetUrunGetir(int id)
         {
-            SepetItemDTO urun = sepet.sepetUrunler.SingleOrDefault(sepetItem => sepetItem.UrunId == id);
+            SepetItemDTO urun = sepet.sepetUrunler.SingleOrDefault(sepetItem => sepetItem.Urun.UrunId == id);
             return urun;
         }
 
         public void SepetUrunMiktarArttir(int id)
         {
-            SepetItemDTO urun = sepet.sepetUrunler.SingleOrDefault(sepetItem => sepetItem.UrunId == id);
-            urun.miktar++;
+            SepetItemDTO urun = sepet.sepetUrunler.SingleOrDefault(sepetItem => sepetItem.Urun.UrunId == id);
+            if (urun.miktar <= 10)
+            {
+				urun.miktar++;
+			}
+            else
+            {
+                //throw new Error();
+            }
 
         }
 
         public void SepetUrunMiktarAzalt(int id)
         {
-            SepetItemDTO urun = sepet.sepetUrunler.SingleOrDefault(sepetItem => sepetItem.UrunId == id);
-            urun.miktar--;
-        }
+			SepetItemDTO urun = sepet.sepetUrunler.SingleOrDefault(sepetItem => sepetItem.Urun.UrunId == id);
+			if (urun.miktar != 1)
+			{
+				urun.miktar--;
+			}
+			else
+			{
+				throw new Exception();
+			}
+		}
     }
 }

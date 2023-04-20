@@ -845,3 +845,9 @@ aside h2{
 .row div{
     height:fit-content;
 }
+
+.errordiv{
+    width:100%;
+    position:fixed;
+    bottom:15%;
+}

@@ -1,6 +1,8 @@
-﻿using DataAccessLayer.Entity_Framework;
+﻿using DataAccessLayer.Concrete;
+using DataAccessLayer.Entity_Framework;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
-//using Otomativ_e_ticaret.Models;
+using Otomativ_e_ticaret.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
 

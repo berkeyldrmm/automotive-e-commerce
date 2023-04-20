@@ -1,6 +1,10 @@
 ﻿using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
+using DataAccessLayer.Entity_Framework;
+using DTOLayer.DTOs.Sepet;
 using Microsoft.AspNetCore.Mvc;
 using Otomativ_e_ticaret.Models;
+using System.Text.Json;
 
 namespace Otomativ_e_ticaret.Controllers
 {
@@ -8,6 +12,7 @@ namespace Otomativ_e_ticaret.Controllers
     {
         public SepetDTO sepet { get; set; }
         public SepetManager sepetManager { get; set; }
+        public UrunManager urunManager = new UrunManager(new EfUrun());
 
         public SepetController(SepetDTO sepet)
         {
@@ -17,14 +22,26 @@ namespace Otomativ_e_ticaret.Controllers
 
         public IActionResult Index()
         {
+            if (TempData["sepeteeklendi"]!=null)
+            {
+                ViewBag.sepeteeklendi = TempData["sepeteeklendi"];
+            }
             var sepeturunler = sepet.sepetUrunler;
             return View(sepeturunler);
-		}
+        }
 
         [HttpPost]
-        public IActionResult SepeteEkle(int UrunId,string miktar)
+        public IActionResult SepeteEkle(UrunDTO sepetitem)
         {
-            sepetManager.SepeteEkle(UrunId, miktar);
+            try
+            {
+                ValidateMiktar.MiktarValidator(sepetitem, new UrunManager(new EfUrun()));
+                sepetManager.SepeteEkle(sepetitem);
+            }
+            catch (Exception err)
+            {
+                TempData["sepeteeklendi"] = err.Message;
+            }
             
             return RedirectToAction("Index");
         }

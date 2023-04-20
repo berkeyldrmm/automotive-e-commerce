@@ -1,4 +1,5 @@
-﻿using Otomativ_e_ticaret.Models;
+﻿using DTOLayer.DTOs.Sepet;
+using Otomativ_e_ticaret.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace BusinessLayer.Abstract
     public interface ISepetService
     {
         public SepetItemDTO SepetUrunGetir(int id);
-        public void SepeteEkle(int UrunId, string miktar);
+        public void SepeteEkle(UrunDTO sepetitem);
         public void SepettenCikar(int id);
         public void SepetUrunMiktarArttir(int id);
         public void SepetUrunMiktarAzalt(int id);

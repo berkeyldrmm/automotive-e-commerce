@@ -1,5 +1,5 @@
 ﻿using BusinessLayer.Abstract;
-using DataAccessLayer.Abstraact;
+using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -9,37 +9,38 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
-    internal class SiparisManager : ISiparisService
+    public class SiparisManager : ISiparisService
     {
-        private IUrunDal UrunDal { get; set; }
+        //Dependency Injection
+        private ISiparisDal SiparisDal { get; set; }
 
-        public SiparisManager(IUrunDal urunService)
+        public SiparisManager(ISiparisDal siparisService)
         {
-            UrunDal = urunService;
+            SiparisDal = siparisService;
         }
         public void TEkle(Siparis entity)
         {
-            throw new NotImplementedException();
+            SiparisDal.Ekle(entity);
         }
 
         public void TGunceller(Siparis entity)
         {
-            throw new NotImplementedException();
+            SiparisDal.Guncelle(entity);
         }
 
         public List<Siparis> TListeGetir()
         {
-            throw new NotImplementedException();
+            return SiparisDal.ListeGetir();
         }
 
         public void TSil(Siparis entity)
         {
-            throw new NotImplementedException();
+            SiparisDal.Sil(entity);
         }
 
         public Siparis TItemGetir(int id)
         {
-            throw new NotImplementedException();
+            return SiparisDal.ItemGetir(id);
         }
     }
 }

@@ -53,7 +53,7 @@
                 @toplamtutar2 TL
             </div>
             <div class="col-2 p-5 m-3">
-                <button class="btn btn-primary siparisver">Siparis Ver</button>
+                <button onclick="siparisVer()" class="btn btn-primary siparisver">Siparis Ver</button>
             </div>
             <div class="col-1 p-5 m-3" style="font-size:10px;">
                 <a href="https://localhost:7121/sepet/sepetbosalt" class="btn btn-danger sepetibosalt">Sepeti Boşalt</a>
@@ -66,3 +66,23 @@ else{
         Sepet boş
     </div>
 }
+
+<div class="modal" id="modal2">
+    <div id="modal-content" class="mx-auto my-auto">
+        <button class="modal-close">&times;</button>
+        <h2 style="color:#f5f6f6">Sepet bilgileri</h2>
+        <ul>
+            <partial name="../PartialViews/_SepetUrunlerPartial" model="@Model"></partial>
+        </ul>
+        <p>Sepeti onaylıyor musunuz?</p>
+        <a href="https://localhost:7121/sepet/siparisver" class="btn btn-danger mx-auto">Onayla</a>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function siparisVer(){
+        console.log("mkmd");
+        $(".modal").css("display","block");
+    }
+</script>

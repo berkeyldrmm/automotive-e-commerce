@@ -16,6 +16,8 @@ namespace DataAccessLayer.Concrete
         public DbSet<Kullanici> Kullanicilar { get; set; }
         public DbSet<Siparis> Siparisler { get; set; }
         public DbSet<Hakkimizda> Hakkimizda { get; set; }
+        public DbSet<SiparisDetay> SiparisDetaylari { get; set; }
+        public DbSet<Status> StatusList { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

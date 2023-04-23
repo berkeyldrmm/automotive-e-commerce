@@ -1,0 +1,49 @@
+﻿@model List<SepetItemDTO>
+
+<style>
+	input, textarea {
+		width:100%;
+		text-align:center;
+		margin-bottom:15px;
+	}
+</style>
+
+<form id="siparisformu" class="w-50 mx-auto text-center mt-3 mb-3" asp-controller="sepet" asp-action="SiparisTamamla" method="post">
+	<h2>Sİpariş Formu</h2>
+
+		<label for="ad">Adınız:</label><br>
+		<input type="text" id="ad" name="ad"><br>
+
+		<label for="soyad">Soyadınız:</label><br>
+		<input type="text" id="soyad" name="soyad"><br>
+
+		<label for="email">E-posta Adresiniz:</label><br>
+		<input type="email" id="email" name="email"><br>
+
+		<label for="telefon">Telefon Numaranız:</label><br>
+		<input type="tel" id="telefon" name="telefon"><br>
+
+		<label for="adres">Adresiniz:</label><br>
+		<input type="text" id="adres" name="adres"><br>
+
+		<h3>Siparişinizin Detayları:</h3>
+
+		<ul>
+			<partial name="../PartialViews/_SepetUrunlerPartial" model="@Model"></partial>
+		</ul>
+
+		<label for="ad">Kart Sahibi Ad Soyad:</label><br>
+		<input type="text" id="kartsahibi" name="kartsahibi"><br>
+
+		<label for="kartno">Kart Numaranız:</label><br>
+		<input type="text" id="kartno" name="kartno" minlength="16" maxlength="16"><br>
+
+		<label for="skt">Son Kullanma Tarihi:</label><br>
+		<input type="month" id="skt" name="skt"><br>
+
+		<label for="cvv">CVV Kodu:</label><br>
+		<input type="password" id="cvv" name="cvv" minlength="3" maxlength="4"><br>
+
+		<input type="submit" value="Siparişi Tamamla">
+	
+</form>

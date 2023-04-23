@@ -55,7 +55,7 @@ namespace BusinessLayer.Concrete
 
         public void SepetUrunMiktarArttir(int id)
         {
-            SepetItemDTO urun = this.SepetUrunGetir(id);
+            SepetItemDTO urun = SepetUrunGetir(id);
             urun.miktar++;
             ValidateMiktar.MiktarValidator(SepetUrunGetir(id));
         }

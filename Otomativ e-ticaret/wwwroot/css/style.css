@@ -851,3 +851,17 @@ aside h2{
     position:fixed;
     bottom:15%;
 }
+
+#modal2 {
+    padding-left:5%;
+    padding-top:3%;
+    color:aliceblue;
+    background-color:#252525;
+    position:fixed;
+    width:50%;
+    height:50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    
+}

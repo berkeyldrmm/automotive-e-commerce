@@ -1,0 +1,14 @@
+﻿@model List<SepetItemDTO>
+
+@{
+                double toplamtutar = 0;
+                foreach (var prd in Model)
+                {
+                    toplamtutar += Convert.ToDouble(prd.Urun.Fiyat * prd.miktar);
+                }
+                foreach (var urun in Model)
+                {
+                    <li>@urun.Urun.UrunAdi, @urun.Urun.Fiyat TL, @urun.miktar adet, Toplam: @(urun.Urun.Fiyat * urun.miktar) TL </li>
+                }
+                <li style="font-weight:bold">Sipariş Tutarı: @toplamtutar TL</li>
+            }

@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Entity_Framework
 {
-    public class EfHakkimizda : GenericRepository<Hakkimizda>, IHakkimizdaDal
+    public class EfMesaj : GenericRepository<Mesaj>, IMesajDal
     {
-
     }
 }

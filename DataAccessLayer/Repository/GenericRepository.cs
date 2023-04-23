@@ -11,18 +11,18 @@ namespace DataAccessLayer.Repository
 {
     public class GenericRepository<T> : IGenericDal<T> where T : class
     {
-        public void Ekle(T item)
+        public async void Ekle(T item)
         {
-            using var c = new Context();
-            c.AddAsync(item);
-            c.SaveChangesAsync();
+            Context c = new Context();
+            await c.AddAsync(item);
+            await c.SaveChangesAsync();
         }
 
-        public void Guncelle(T item)
+        public async void Guncelle(T item)
         {
             using var c = new Context();
             c.Update(item);
-            c.SaveChangesAsync();
+            await c.SaveChangesAsync();
         }
 
         public void Sil(T item)

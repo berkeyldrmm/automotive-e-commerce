@@ -17,7 +17,6 @@ namespace BusinessLayer.ValidationRules
     {
         public static void MiktarValidator(SepetItemDTO sepetitem)
         {
-            //Urun urun = urunManager.TItemGetir(sepetitem.UrunId);
             if (sepetitem.miktar > 10)
             {
                 throw new Error(string.Format("10 adetten daha fazla sipariş veremezsiniz."));

@@ -1,7 +1,11 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using DataAccessLayer.Abstract;
 using DataAccessLayer.Entity_Framework;
+using DataAccessLayer.Repository;
 using DTOLayer.DTOs.Sepet;
+using DTOLayer.DTOs.Siparis;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using Otomativ_e_ticaret.Models;
 using System.Text.Json;
@@ -95,6 +99,41 @@ namespace Otomativ_e_ticaret.Controllers
         {
             sepetManager.SepetiBosalt();
             return RedirectToAction("Index");
+        }
+        public IActionResult SiparisVer()
+        {
+            var siparis = sepet.sepetUrunler;
+            return View(siparis);
+        }
+        public IActionResult SiparisTamamla(SiparisDTO siparisDTO)
+        {
+            var guncelurun = new Urun();
+            var siparisdetay = new HashSet<SiparisDetay>();
+            double siparistutari=0;
+            foreach (var urun in sepet.sepetUrunler)
+            {
+                guncelurun = urun.Urun;
+                guncelurun.Stok -= urun.miktar;
+                urunManager.TGunceller(guncelurun);
+                siparistutari += urun.Urun.Fiyat * urun.miktar;
+                siparisdetay.Add(new SiparisDetay() { UrunId = urun.Urun.UrunId, Miktar = urun.miktar });
+            }
+
+            var siparis = new Siparis()
+            {
+                Isim = siparisDTO.ad,
+                Soyisim = siparisDTO.soyad,
+                TelefonNo = siparisDTO.telefon,
+                Mail = siparisDTO.email,
+                Adres = siparisDTO.adres,
+                SiparisZamani = DateTime.Now.Date.ToString() + " , " + DateTime.Now.TimeOfDay.ToString(),
+                SiparisDetayi = siparisdetay,
+                SiparisTutari=siparistutari,
+                StatusId=1
+            };
+            var siparisManager = new SiparisManager(new EfSiparis());
+            siparisManager.TEkle(siparis);
+            return View();
         }
     }
 }

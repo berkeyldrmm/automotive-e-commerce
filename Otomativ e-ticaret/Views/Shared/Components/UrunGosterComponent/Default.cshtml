@@ -3,7 +3,14 @@
 	
 	<section id="product" class="d-flex flex-column justify-content-center align-items-center mt-4">
 		<div>
-			<img src="~/@ViewBag.urun.GorselUrl" alt="Ürün Adı" height="400" >
+			@if (ViewBag.urun.Stok == 0)
+            {
+				<img src="~/@ViewBag.urun.GorselUrl" style="filter:grayscale(100%)" alt="Ürün Adı" height="400" />
+            }
+            else
+			{
+				<img src="~/@ViewBag.urun.GorselUrl" alt="Ürün Adı" height="400" />
+            }
 		</div>
 		<h2 class="mt-2">@ViewBag.urun.UrunAdi</h2>
 		<p class="mt-2">@ViewBag.urun.Aciklama</p>

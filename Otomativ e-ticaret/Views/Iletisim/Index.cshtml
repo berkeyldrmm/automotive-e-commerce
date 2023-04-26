@@ -1,0 +1,67 @@
+﻿@model Mesaj
+
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<partial name="./_ValidationScriptsPartial"></partial>*@
+
+<div class="container">
+	<div class="row">
+		<h1 class="text-center mt-3">Bize ulaşın!</h1>
+	</div>
+	<div class="row input-container">
+		<form asp-action="index" asp-controller="iletisim" method="post">
+			<div class="col-xs-12">
+				<div class="styled-input wide">
+					<span asp-validation-for="MesajSahibiIsimSoyisim"></span>
+					<input type="text" asp-for="MesajSahibiIsimSoyisim" />
+					<label asp-for="MesajSahibiIsimSoyisim">İsim Soyisim</label>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<div class="styled-input">
+					<span asp-validation-for="MesajSahibiMail"></span>
+					<input type="email" asp-for="MesajSahibiMail" />
+					<label asp-for="MesajSahibiMail">Mail adresi</label>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<div class="styled-input" style="float:right;">
+					<span asp-validation-for="MesajSahibiTelefon"></span>
+					<input type="text" asp-for="MesajSahibiTelefon" />
+					<label asp-for="MesajSahibiTelefon">Telefon numarası (isteğe bağlı)</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="styled-input wide">
+					<span asp-validation-for="TextMesaj"></span>
+					<textarea asp-for="TextMesaj"></textarea>
+					<label asp-for="TextMesaj">Mesaj</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<input type="submit" class="btn-lrg submit-btn" value="Gönder">
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+@if (ViewBag.mesaj != null)
+{
+	string bg="";
+	if(ViewBag.mesaj=="Form gönderildi.")
+	{
+		bg = "alert-success";
+	}
+	else
+	{
+		bg = "alert-danger";
+	}
+	<div class="errordiv alert @bg">
+		<partial name="../PartialViews/_ErrorPartial" model="@ViewBag.mesaj"></partial>
+	</div>
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<partial name="./_ValidationScriptsPartial"></partial>
+

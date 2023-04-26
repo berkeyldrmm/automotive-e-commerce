@@ -1,4 +1,8 @@
-﻿@model List<SepetItemDTO>
+﻿@using DTOLayer.DTOs.Siparis;
+@model SiparisDTO
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<partial name="./_ValidationScriptsPartial"></partial>
 
 <style>
 	input, textarea {
@@ -8,28 +12,33 @@
 	}
 </style>
 
-<form id="siparisformu" class="w-50 mx-auto text-center mt-3 mb-3" asp-controller="sepet" asp-action="SiparisTamamla" method="post">
+<form id="siparisformu" class="w-50 mx-auto text-center mt-3 mb-3" asp-controller="sepet" asp-action="SiparisVer" method="post">
 	<h2>Sİpariş Formu</h2>
 
-		<label for="ad">Adınız:</label><br>
-		<input type="text" id="ad" name="ad"><br>
+		<span asp-validation-for="ad"></span><br>
+		<label asp-for="ad">Adınız:</label><br>
+		<input type="text" id="ad" asp-for="ad"><br>
 
-		<label for="soyad">Soyadınız:</label><br>
-		<input type="text" id="soyad" name="soyad"><br>
+		<span asp-validation-for="soyad"></span><br>
+		<label asp-for="soyad">Soyadınız:</label><br>
+		<input type="text" id="soyad" asp-for="soyad"><br>
 
-		<label for="email">E-posta Adresiniz:</label><br>
-		<input type="email" id="email" name="email"><br>
+		<span asp-validation-for="email"></span><br>
+		<label asp-for="email">E-posta Adresiniz:</label><br>
+		<input type="email" id="email" asp-for="email"><br>
 
-		<label for="telefon">Telefon Numaranız:</label><br>
-		<input type="tel" id="telefon" name="telefon"><br>
+		<span asp-validation-for="telefon"></span><br>
+		<label asp-for="telefon">Telefon Numaranız:</label><br>
+		<input type="tel" id="telefon" asp-for="telefon"><br>
 
-		<label for="adres">Adresiniz:</label><br>
-		<input type="text" id="adres" name="adres"><br>
+		<span asp-validation-for="adres"></span><br>
+		<label asp-for="adres">Adresiniz:</label><br>
+		<input type="text" id="adres" asp-for="adres"><br>
 
 		<h3>Siparişinizin Detayları:</h3>
 
 		<ul>
-			<partial name="../PartialViews/_SepetUrunlerPartial" model="@Model"></partial>
+			<partial name="../PartialViews/_SepetUrunlerPartial" model="@ViewBag.siparis"></partial>
 		</ul>
 
 		<label for="ad">Kart Sahibi Ad Soyad:</label><br>
@@ -47,3 +56,12 @@
 		<input type="submit" value="Siparişi Tamamla">
 	
 </form>
+
+@if (ViewBag.siparishata != null)
+{
+	<div class="alert alert-danger">
+		<partial name="../PartialViews/_ErrorPartial" model="@ViewBag.siparishata"></partial>
+	</div>
+}
+
+

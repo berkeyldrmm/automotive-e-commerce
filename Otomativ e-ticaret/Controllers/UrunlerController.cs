@@ -1,7 +1,5 @@
 ﻿using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using NuGet.Protocol;
 using Otomativ_e_ticaret.Models;
 using System.Xml.Linq;
 

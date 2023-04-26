@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Abstract;
+using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,36 @@ namespace BusinessLayer.Concrete
 {
     public class MesajManager : IMesajService
     {
+        public IMesajDal MesajDal { get; set; }
+
+        public MesajManager(IMesajDal mesajDal)
+        {
+            MesajDal = mesajDal;
+        }
+
         public void TEkle(Mesaj entity)
         {
-            throw new NotImplementedException();
+            MesajDal.Ekle(entity);
         }
 
         public void TGunceller(Mesaj entity)
         {
-            throw new NotImplementedException();
-        }
+			MesajDal.Guncelle(entity);
+		}
 
         public Mesaj TItemGetir(int id)
         {
-            throw new NotImplementedException();
-        }
+			return MesajDal.ItemGetir(id);
+		}
 
         public List<Mesaj> TListeGetir()
         {
-            throw new NotImplementedException();
-        }
+			return MesajDal.ListeGetir();
+		}
 
         public void TSil(Mesaj entity)
         {
-            throw new NotImplementedException();
+            MesajDal.Sil(entity);
         }
     }
 }

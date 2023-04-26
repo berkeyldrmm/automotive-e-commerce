@@ -9,10 +9,10 @@ namespace EntityLayer.Concrete
     public class Mesaj
     {
         public int MesajId { get; set; }
-        public string MesajSahibiIsim { get;}
-        public string MesajSahibiSoyisim { get;}
-        public string? MesajSahibiTelefon { get;}
-        public string MesajSahibiMail { get;}
-        public string TextMesaj { get;}
-    }
+        public string MesajSahibiIsimSoyisim { get; set; }
+		public string MesajSahibiMail { get; set; }
+		public string MesajSahibiTelefon { get; set; }
+		public string TextMesaj { get; set; }
+		public DateTime MesajZamani { get; set; }
+	}
 }

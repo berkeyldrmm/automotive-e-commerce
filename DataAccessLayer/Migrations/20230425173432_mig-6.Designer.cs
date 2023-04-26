@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230423130202_mig-1")]
-    partial class mig1
+    [Migration("20230425173432_mig-6")]
+    partial class mig6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,6 +25,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("HakkimizdaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<bool>("Aktiflik")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("GorselUrl")
                         .IsRequired()
@@ -60,6 +63,36 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("KullaniciId");
 
                     b.ToTable("Kullanicilar");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Mesaj", b =>
+                {
+                    b.Property<int>("MesajId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("MesajSahibiIsimSoyisim")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("MesajSahibiMail")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("MesajSahibiTelefon")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("MesajZamani")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TextMesaj")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("MesajId");
+
+                    b.ToTable("IletisimForm");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Siparis", b =>

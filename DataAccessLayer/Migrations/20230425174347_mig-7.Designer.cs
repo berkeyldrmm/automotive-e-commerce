@@ -3,6 +3,7 @@ using System;
 using DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230425174347_mig-7")]
+    partial class mig7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,9 +73,11 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("MesajSahibiIsimSoyisim")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("MesajSahibiMail")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("MesajSahibiTelefon")
@@ -83,6 +87,7 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("TextMesaj")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("MesajId");
@@ -110,8 +115,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<double>("SiparisTutari")
                         .HasColumnType("double");
 
-                    b.Property<DateTime>("SiparisZamani")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("SiparisZamani")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Soyisim")
                         .IsRequired()

@@ -1,4 +1,6 @@
-﻿<div class="about_section layout_padding">
+﻿@model Hakkimizda
+
+<div class="about_section layout_padding">
     <div class="container">
         <div class="about_section_main">
             <div class="row">
@@ -6,17 +8,13 @@
                     <div class="about_taital_main">
                         <h1 class="about_taital">Hakkımızda</h1>
                         <p class="about_text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer hendrerit sem id tristique viverra. Ut vehicula dui leo, id ullamcorper orci tempor vitae. Curabitur turpis augue, commodo nec dignissim ut, egestas quis sapien. Aliquam erat volutpat. Praesent lacinia, augue id semper lobortis, dui est fringilla tellus, vitae auctor velit metus nec lectus. Integer consequat magna in imperdiet aliquam. Curabitur feugiat nibh ac metus bibendum, in pharetra augue maximus. Cras vitae neque convallis, aliquet augue et, porta massa. Nunc porta convallis erat, sed porta nisi finibus ut. Curabitur quam felis, euismod quis varius non, accumsan vel ante. Fusce non eros sollicitudin, porta velit non, ultricies arcu. Morbi nec orci sed est semper dapibus et ut mi. Duis ac nibh tristique, rhoncus felis scelerisque, commodo arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tellus erat, molestie in gravida a, volutpat ut neque. Nunc pulvinar orci a suscipit porta.
-                            <br /><br />
-                            Duis et aliquam ante. Aliquam eu magna libero. Sed vitae molestie orci, sit amet varius nisl. In eget finibus lacus. Curabitur id egestas quam, eu congue ligula. Nulla placerat tincidunt orci, vitae pharetra lorem lobortis ultricies. Integer posuere ex interdum, accumsan nulla quis, commodo nibh. Nunc ut dolor justo. Aliquam mollis efficitur elit, vel cursus eros dignissim sit amet.
-                            <br /><br />
-                            Nulla imperdiet egestas lectus eget volutpat. Morbi cursus, nulla sed bibendum sagittis, augue lacus pretium ipsum, mattis scelerisque sapien enim eu magna. Nulla placerat magna eu lorem dictum lobortis. Maecenas suscipit ante vitae libero placerat feugiat. Etiam imperdiet nec odio sed interdum. Fusce eu ligula congue, dapibus orci et, consectetur sem. Phasellus nec erat sapien. Vestibulum nec cursus nunc. Nulla nulla ipsum, porttitor id lacus non, ornare semper nunc. Nulla vehicula, est vel ornare accumsan, purus ante maximus ipsum, sed elementum turpis nisi sagittis risus. Quisque lobortis eget ante nec lobortis. Praesent euismod pharetra sapien, nec luctus nulla. Vestibulum malesuada felis vel ornare molestie. Curabitur eu imperdiet est, nec cursus odio.
+                            @Model.Metin
                         </p>
                         <div class="readmore_bt"><a href="#">Read More</a></div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div><img src="~/images/about-img.png" class="image_3"></div>
+                    <div><img src="~/@Model.GorselUrl" class="image_3" style="height:600px"></div>
                 </div>
             </div>
         </div>

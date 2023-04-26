@@ -16,7 +16,7 @@ namespace EntityLayer.Concrete
         public string TelefonNo { get; set; }
         public string? Mail { get; set; }
         public ICollection<SiparisDetay> SiparisDetayi { get; set; }
-        public string SiparisZamani { get; set; }
+        public DateTime SiparisZamani { get; set; }
         public double SiparisTutari { get; set; }
         [ForeignKey(nameof(Status))]
         public int StatusId { get; set; }

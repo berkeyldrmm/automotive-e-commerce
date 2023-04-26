@@ -11,5 +11,6 @@ namespace EntityLayer.Concrete
         public int HakkimizdaId { get; set; }
         public string GorselUrl { get; set; }
         public string Metin { get; set; }
+        public bool Aktiflik { get; set; }
     }
 }

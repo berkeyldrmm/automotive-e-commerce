@@ -2,12 +2,18 @@
 
 @for(int i=0; i<Model.Count; i++){
     var urun = Model.ElementAt(i);
-    
+
     <div class="card">
             <div class="product_box d-flex flex-column justify-content-center">
                  <a href="https://localhost:7121/urun/index/@urun.UrunId">
                     <h4 class="bursh_text">@urun.UrunAdi</h4>
-                    <img src="~/@urun.GorselUrl" />
+                    @if (urun.Stok == 0)
+                    {
+                        <img src="~/@urun.GorselUrl" style="filter:grayscale(100%)" />
+                    }
+                    else{
+                        <img src="~/@urun.GorselUrl" />
+                    }
                   </a>
                     <div class="btn_main">
                         <form asp-controller="sepet" asp-action="sepeteekle">
@@ -23,3 +29,15 @@
     </div>
 }
 <div id="errordiv"></div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+@foreach (var urun in Model)
+{
+    if (urun.Stok==0)
+    {
+        <script>
+            $("img")
+        </script>
+    }
+}
+

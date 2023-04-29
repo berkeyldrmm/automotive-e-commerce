@@ -1,0 +1,134 @@
+﻿@model Admin
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LogIn</title>
+    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.css">
+    <style>
+       
+        body, html {
+          width:100%;
+          height: 100%;
+          display:flex;
+          
+        }
+        body {
+          background-color:#252525;
+          font-family: 'Open Sans';
+          font-weight: 100;
+          display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          overflow: hidden;
+        }
+        input {
+          ::-webkit-input-placeholder {
+             color: rgba(255,255,255,0.7);
+          }
+          ::-moz-placeholder {
+             color: rgba(255,255,255,0.7);  
+          }
+          :-ms-input-placeholder {  
+             color: rgba(255,255,255,0.7);  
+          }
+          &:focus {
+            outline: 0 transparent solid;
+            ::-webkit-input-placeholder {
+             color: rgba(0,0,0,0.7);
+            }
+            ::-moz-placeholder {
+               color: rgba(0,0,0,0.7);  
+            }
+            :-ms-input-placeholder {  
+               color: rgba(0,0,0,0.7);  
+            }
+          }
+        }
+
+        .login-form {
+          background: #222;
+          box-shadow: 0 0 1rem rgba(0,0,0,0.3);
+          min-height: 10rem;
+          margin: auto;
+          max-width: 50%;
+          padding: .5rem;
+        }
+        .login-text {
+          background: hsl(40,30,60);
+          border-bottom: .5rem solid white;
+          color: white;
+          font-size: 1.5rem;
+          margin: 0 auto;
+          max-width: 50%;
+          padding: .5rem;
+          text-align: center;
+          text-shadow: 1px -1px 0 rgba(0,0,0,0.3);
+          
+        }
+
+        .login-username, .login-password {
+          background: transparent;
+          border: 0 solid;
+          border-bottom: 1px solid rgba(white, .5);
+          color: white;
+          display: block;
+          margin: 1rem;
+          padding: .5rem;
+          transition: 250ms background ease-in;
+          width: calc(100% - 3rem);
+         
+        }
+
+        .login-submit {
+          border: 1px solid white;
+          background: transparent;
+          color: white;
+          display: block;
+          margin: 1rem auto;
+          min-width: 1px;
+          padding: .25rem;
+          transition: 250ms background ease-in;
+         
+        }
+
+        .errordiv {
+            width: 100%;
+            position: fixed;
+            top: 25%;
+            color:#ff0000;
+            width:75vw;
+            height:50px;
+            border-radius:50px;
+        }
+
+        span {
+            color: #ff0000;
+        }
+
+    </style>
+</head>
+<body>
+    @if (ViewBag.error!=null)
+    {
+        <div class="errordiv alert-danger d-flex justify-content-center align-items-center">
+            <partial name="../PartialViews/_ErrorPartial" model="ViewBag.error"></partial>
+        </div>
+    }
+    <form class="login-form w-50" asp-action="login" asp-controller="admin">
+        <span asp-validation-for="KullaniciAdi"class="mx-auto"></span>
+        <input type="text" class="login-username text-center" asp-for="KullaniciAdi" autofocus="true" required="true" placeholder="Kullanıcı Adı" />
+        <span asp-validation-for="Sifre" class="mx-auto"></span>
+        <input type="password" class="login-password text-center" asp-for="Sifre" required="true" placeholder="Şifre" />
+        <input type="submit" name="Login" value="Giriş" class="login-submit" />
+    </form>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <partial name="./_ValidationScriptsPartial"></partial>
+</body>
+</html>

@@ -1,4 +1,7 @@
-﻿using EntityLayer.Concrete;
+﻿using BusinessLayer.Concrete;
+using DTOLayer.DTOs.Siparis;
+using EntityLayer.Concrete;
+using Otomativ_e_ticaret.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-    internal interface ISiparisService : IGenericService<Siparis>
-    {
-    }
+    public interface ISiparisService : IGenericService<Siparis>
+	{
+		public Siparis SiparisOlustur(SepetDTO sepet, SiparisDTO siparisDTO, Urun GuncelUrun, HashSet<SiparisDetay> siparisDetay);
+	}
 }

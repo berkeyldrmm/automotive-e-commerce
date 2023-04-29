@@ -1,0 +1,38 @@
+﻿@model List<Urun>
+
+@foreach (var urun in Model)
+{
+    <tr>
+        <td>
+            @urun.UrunId
+        </td>
+        <td>
+            @urun.UrunAdi
+        </td>
+        <td>
+            @urun.Fiyat
+        </td>
+        <td>
+            @urun.Stok
+        </td>
+        <td>
+            @urun.Kategori
+        </td>
+        <td>
+            @urun.Marka
+        </td>
+        <td>
+            @urun.UstKategori
+        </td>
+        <td>
+            <img src="~/@urun.GorselUrl" height="70" />
+        </td>
+        <td>
+            @urun.Aciklama
+        </td>
+        <td>
+            <button class="btn btn-sm btn-primary mr-3" data-id="@urun.UrunId">Düzenle</button>
+            <button class="btn btn-sm btn-danger" data-id="@urun.UrunId">Sil</button>
+        </td>
+    </tr>
+}

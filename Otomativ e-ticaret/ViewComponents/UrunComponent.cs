@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using BusinessLayer.Concrete;
 using DataAccessLayer.Entity_Framework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,9 @@ namespace Otomativ_e_ticaret.ViewComponents
 {
     public class UrunComponent : ViewComponent
     {
-        private UrunManager urunManager;
+        private readonly IUrunService urunManager;
 
-        public UrunComponent(UrunManager urunManager)
+        public UrunComponent(IUrunService urunManager)
         {
             this.urunManager = urunManager;
         }

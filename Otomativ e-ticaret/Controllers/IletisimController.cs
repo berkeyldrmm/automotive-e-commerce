@@ -10,7 +10,12 @@ namespace Otomativ_e_ticaret.Controllers
 {
 	public class IletisimController : Controller
 	{
-		public MesajManager mesajManager = new MesajManager(new EfMesaj());
+		private readonly IMesajService mesajManager;
+
+		public IletisimController(IMesajService mesajManager)
+		{
+			this.mesajManager = mesajManager;
+		}
 
 		public IActionResult Index()
 		{
@@ -40,25 +45,6 @@ namespace Otomativ_e_ticaret.Controllers
 				ViewBag.mesaj = "Form gönderilmedi";
 			}
 
-			//if (ModelState.IsValid)
-			//{
-			//	mesajManager.TEkle(mesaj);
-			//	ViewBag.mesaj = "Form gönderildi.";
-			//}
-			//else
-			//{
-			//	ViewBag.mesaj = "Form gönderilemedi.";
-			//}
-
-			//try
-			//{
-			//	mesajManager.TEkle(mesaj);
-			//	ViewBag.mesaj = "Form gönderildi.";
-			//}
-			//catch (Exception err)
-			//{
-			//	ViewBag.mesaj = err.Message;
-			//}
 
 			return View();
 		}

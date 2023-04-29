@@ -11,7 +11,7 @@ namespace BusinessLayer.Concrete
 {
     public class UrunManager : IUrunService
     {
-        private IUrunDal UrunDal { get; set; }
+        private readonly IUrunDal UrunDal;
 
         public UrunManager(IUrunDal urunService)
         {

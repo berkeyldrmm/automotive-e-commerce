@@ -19,6 +19,7 @@ namespace DataAccessLayer.Concrete
         public DbSet<SiparisDetay> SiparisDetaylari { get; set; }
         public DbSet<Status> StatusList { get; set; }
         public DbSet<Mesaj> IletisimForm { get; set; }
+        public DbSet<Admin> Adminler { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

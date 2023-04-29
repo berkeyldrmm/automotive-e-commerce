@@ -12,7 +12,7 @@ namespace BusinessLayer.Concrete
 {
     public class HakkimizdaManager : IHakkimizdaService
     {
-        public IHakkimizdaDal HakkimizdaDal { get; set; }
+        private readonly IHakkimizdaDal HakkimizdaDal;
 
         public HakkimizdaManager(IHakkimizdaDal hakkimizdaservice)
         {

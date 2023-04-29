@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstraact;
+using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ namespace BusinessLayer.Concrete
 {
     public class KullaniciManager : IKullaniciService
     {
-        private IUrunDal UrunDal { get; set; }
+        private readonly IKullaniciDal KullaniciDal;
 
-        public KullaniciManager(IUrunDal urunService)
+        public KullaniciManager(IKullaniciDal kullaniciService)
         {
-            UrunDal = urunService;
+			KullaniciDal = kullaniciService;
         }
         public void TEkle(Kullanici entity)
         {

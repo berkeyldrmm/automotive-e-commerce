@@ -19,7 +19,7 @@
 			<label for="quantity">Adet:</label>
 			<input type="hidden" asp-for="UrunId" name="UrunId" value="@ViewBag.urun.UrunId"/>
 			@{
-				int? max=10;
+				int max=10;
 				if (ViewBag.urun.Stok<10)
 				{
 					max = @ViewBag.urun.Stok;

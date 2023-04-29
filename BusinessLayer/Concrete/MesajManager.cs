@@ -11,7 +11,7 @@ namespace BusinessLayer.Concrete
 {
     public class MesajManager : IMesajService
     {
-        public IMesajDal MesajDal { get; set; }
+        private readonly IMesajDal MesajDal;
 
         public MesajManager(IMesajDal mesajDal)
         {

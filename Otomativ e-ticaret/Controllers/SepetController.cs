@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 using DataAccessLayer.Entity_Framework;
 using DTOLayer.DTOs.Sepet;
@@ -13,16 +14,20 @@ namespace Otomativ_e_ticaret.Controllers
 {
     public class SepetController : Controller
     {
-        public SepetDTO sepet { get; set; }
-        public SepetManager sepetManager { get; set; }
-        public UrunManager urunManager { get; set; }
+        private readonly SepetDTO sepet;
+        private readonly ISepetService sepetManager;
+        private readonly IUrunService UrunManager;
 
-        public SepetController(SepetDTO sepet)
+        private readonly ISiparisService SiparisService;
+
+        public SepetController(SepetDTO sepet, IUrunService urunManager, ISiparisService siparisService)
         {
             this.sepet = sepet;
-            sepetManager = new SepetManager(sepet);
-            urunManager = new UrunManager(new EfUrun());
-        }
+            sepetManager = new SepetManager(sepet, new UrunManager(new EfUrun()));
+            UrunManager = urunManager;
+			SiparisService = siparisService;
+
+		}
 
         public IActionResult Index()
         {
@@ -46,7 +51,7 @@ namespace Otomativ_e_ticaret.Controllers
                         return SepetUrunMiktarArttir(sepeturun.Urun.UrunId);
                     }
                 }
-                var sepetitemDto = new SepetItemDTO() { Urun = urunManager.TItemGetir(sepetitem.UrunId), miktar = int.Parse(sepetitem.miktar) };
+                var sepetitemDto = new SepetItemDTO() { Urun = UrunManager.TItemGetir(sepetitem.UrunId), miktar = int.Parse(sepetitem.miktar) };
                 sepetManager.SepeteEkle(sepetitem);
             }
             catch (Exception err)
@@ -107,38 +112,15 @@ namespace Otomativ_e_ticaret.Controllers
         [HttpPost]
         public IActionResult SiparisVer(SiparisDTO siparisDTO)
         {
-			var guncelurun = new Urun();
-			var siparisdetay = new HashSet<SiparisDetay>();
 
 			SiparisDTOValidator siparisValidator = new SiparisDTOValidator();
 			ValidationResult validationResult = siparisValidator.Validate(siparisDTO);
 
             if (validationResult.IsValid)
             {
-				double siparistutari = 0;
-				foreach (var urun in sepet.sepetUrunler)
-				{
-					guncelurun = urun.Urun;
-					guncelurun.Stok -= urun.miktar;
-					urunManager.TGunceller(guncelurun);
-					siparistutari += urun.Urun.Fiyat * urun.miktar;
-					siparisdetay.Add(new SiparisDetay() { UrunId = urun.Urun.UrunId, Miktar = urun.miktar });
-				}
-				var siparis = new Siparis()
-				{
-					Isim = siparisDTO.ad,
-					Soyisim = siparisDTO.soyad,
-					TelefonNo = siparisDTO.telefon,
-					Mail = siparisDTO.email,
-					Adres = siparisDTO.adres,
-					SiparisZamani = DateTime.Now,
-					SiparisDetayi = siparisdetay,
-					SiparisTutari = siparistutari,
-					StatusId = 1
-				};
-				var siparisManager = new SiparisManager(new EfSiparis());
+				var yenisiparis=SiparisService.SiparisOlustur(sepet, siparisDTO,new Urun(), new HashSet<SiparisDetay>());
+                SiparisService.TEkle(yenisiparis);
 
-				siparisManager.TEkle(siparis);
 				sepet.sepetUrunler = new List<SepetItemDTO>();
 				return View("SiparisTamamla");
 			}

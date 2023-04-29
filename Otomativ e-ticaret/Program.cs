@@ -1,3 +1,4 @@
+using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 using DataAccessLayer.Abstract;
@@ -10,17 +11,20 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Otomativ_e_ticaret.Controllers;
 using Otomativ_e_ticaret.Models;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews().AddFluentValidation();
-//builder.Services.AddControllersWithViews().AddFluentValidation(x=>x.RegisterValidatorsFromAssemblyContaining<UrunDTO>());
-builder.Services.Add(new ServiceDescriptor(typeof(UrunManager), new UrunManager(new EfUrun())));
-//builder.Services.AddSingleton(new ServiceDescriptor(typeof(ISiparisDal), new SiparisManager(new EfSiparis())));
+builder.Services.AddSingleton<IUrunService>(obj => new UrunManager(new EfUrun()));
+builder.Services.AddSingleton<IHakkimizdaService>(obj => new HakkimizdaManager(new EfHakkimizda()));
+builder.Services.AddSingleton<IMesajService>(obj => new MesajManager(new EfMesaj()));
+builder.Services.AddSingleton<IAdminService>(obj => new AdminManager(new EfAdmin()));
 builder.Services.Add(new ServiceDescriptor(typeof(SepetDTO), new SepetDTO()));
-//builder.Services.AddSingleton<ISiparisDal,EfSiparis>();
+builder.Services.AddSingleton<ISiparisDal,EfSiparis>();
+builder.Services.AddSingleton<ISiparisService>(obj=>new SiparisManager(new EfSiparis(),new UrunManager(new EfUrun())));
 
 var app = builder.Build();
 
@@ -33,6 +37,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "admin",
+    defaults: new { controller = "Admin", action = "LogIn" }
+);
 
 app.MapControllerRoute(
     name: "default",

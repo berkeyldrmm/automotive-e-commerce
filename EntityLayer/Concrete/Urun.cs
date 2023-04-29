@@ -20,6 +20,5 @@ namespace EntityLayer.Concrete
         public string Marka { get; set; }
         public string Aciklama { get; set; }
         public ICollection<SiparisDetay> Siparisler { get; set; }
-        //public ICollection<SiparisDetay> Siparisler { get; set; }
     }
 }

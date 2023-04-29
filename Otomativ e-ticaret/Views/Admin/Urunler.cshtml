@@ -1,0 +1,110 @@
+﻿@model Urun
+@{
+    Layout = "AdminUILayout";
+}
+
+<style>
+    table{
+        border:2px solid grey;
+    }
+    td, th{
+        text-align:center;
+    }
+    #urunekle{
+        margin-bottom:40px;
+        display:none;
+    }
+    input{
+        margin-bottom:10px;
+    }
+</style>
+
+<h1>Ürünler</h1>
+
+<div style="margin-bottom:15px;">
+    <button class="btn btn-lg btn-success mb-5" onclick="urunekle()">Ürün ekle</button>
+</div>
+<div id="urunekle">
+    <form>
+        <label asp-for="UrunAdi" class="form-label"></label>
+        <input type="text" class="form-control" asp-for="UrunAdi" placeholder="Ürün adı" />
+        <label asp-for="Fiyat" class="form-label"></label>
+        <input type="number" class="form-control" asp-for="Fiyat" />
+        <label asp-for="Stok" class="form-label"></label>
+        <input type="number" class="form-control" asp-for="Stok" />
+        <div class="d-flex justify-content-around">
+            <label asp-for="Kategori" class="form-label"></label>
+            <select asp-for="Kategori" class="form-select" placeholder="Kategori">
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <label asp-for="UstKategori" class="form-label"></label>
+            <select asp-for="UstKategori" class="form-select" placeholder="Ürün çeşidi">
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <label asp-for="Marka" class="form-label"></label>
+            <select asp-for="Marka" class="form-select" placeholder="Marka">
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+        <label asp-for="Aciklama" class="form-label"></label>
+        <input type="text" class="form-control" asp-for="Aciklama" placeholder="Aciklama" />
+        <label asp-for="GorselUrl" class="form-label"></label>
+        <input type="file" class="form-control" asp-for="Aciklama" />
+        <input type="submit" class="btn btn-outline-success"/>
+    </form>
+</div>
+<div>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    Ürün ID
+                </th>
+                <th>
+                    Ürün Adı
+                </th>
+                <th>
+                    Fiyat
+                </th>
+                <th>
+                    Stok
+                </th>
+                <th>
+                    Kategori
+                </th>
+                <th>
+                    Marka
+                </th>
+                <th>
+                    Ürün çeşidi
+                </th>
+                <th>
+                    Görsel
+                </th>
+                <th>
+                    Ürün Açıklama
+                </th>
+                <th>
+                    Düzenle
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @await Component.InvokeAsync("UrunGetirComponent",new {model="Urun"})
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    function urunekle(){
+        document.getElementById("urunekle").style.display="block";
+    }
+    
+</script>

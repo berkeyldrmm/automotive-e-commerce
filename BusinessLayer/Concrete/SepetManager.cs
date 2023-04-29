@@ -14,15 +14,15 @@ namespace BusinessLayer.Concrete
 {
     public class SepetManager : ISepetService
     {
-        public SepetDTO sepet { get; set; }
-        public UrunManager urunManager { get; set; }
-        public SepetManager(SepetDTO sepet) {
-            this.sepet=sepet;
-            urunManager = new UrunManager(new EfUrun());
-        }
+        private readonly SepetDTO Sepet;
+        private readonly IUrunService UrunManager;
+        public SepetManager(SepetDTO sepet, IUrunService urunManager) {
+            Sepet=sepet;
+            UrunManager = urunManager;
+		}
         public void SepeteEkle(UrunDTO sepetitem)
         {
-            foreach (var sepeturun in sepet.sepetUrunler)
+            foreach (var sepeturun in Sepet.sepetUrunler)
             {
                 if(sepeturun.Urun.UrunId == sepetitem.UrunId)
                 {
@@ -30,26 +30,26 @@ namespace BusinessLayer.Concrete
                     return;
                 }
             } 
-            var urun=urunManager.TItemGetir(sepetitem.UrunId);
+            var urun= UrunManager.TItemGetir(sepetitem.UrunId);
             var SepetItemDTO = new SepetItemDTO() { Urun = urun, miktar = Convert.ToInt32(sepetitem.miktar) };
             ValidateMiktar.MiktarValidator(SepetItemDTO);
-            sepet.sepetUrunler.Add(SepetItemDTO);
+			Sepet.sepetUrunler.Add(SepetItemDTO);
         }
 
         public void SepetiBosalt()
         {
-            sepet.sepetUrunler = new List<SepetItemDTO>();
+			Sepet.sepetUrunler = new List<SepetItemDTO>();
         }
 
         public void SepettenCikar(int id)
         {
             SepetItemDTO silinecekurun = SepetUrunGetir(id);
-            sepet.sepetUrunler.Remove(silinecekurun);
+			Sepet.sepetUrunler.Remove(silinecekurun);
         }
 
         public SepetItemDTO SepetUrunGetir(int id)
         {
-            SepetItemDTO urun = sepet.sepetUrunler.SingleOrDefault(sepetItem => sepetItem.Urun.UrunId == id);
+            SepetItemDTO urun = Sepet.sepetUrunler.SingleOrDefault(sepetItem => sepetItem.Urun.UrunId == id);
             return urun;
         }
 

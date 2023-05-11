@@ -1,0 +1,9 @@
+﻿@model Kategori
+@if (ViewBag.marka == null)
+{
+    <h1 class="product_taital">@Model.KategoriAdi</h1>
+}
+else
+{
+    <h1 class="product_taital">@Model.KategoriAdi - @ViewBag.marka</h1>
+}

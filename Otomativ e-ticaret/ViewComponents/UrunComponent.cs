@@ -18,21 +18,24 @@ namespace Otomativ_e_ticaret.ViewComponents
             this.urunManager = urunManager;
         }
 
-        public IViewComponentResult Invoke(string category, bool forIndex, string marka, double enaz, double enfazla, string sira, string altkategori)
+        public IViewComponentResult Invoke(string uruncesidi, string category, bool forIndex, string marka, double enaz, double enfazla, string sira)
         {
             List<Urun> urunler;
-            if (category == "Parça")
+            if (uruncesidi == "parca")
             {
-                if (altkategori != null)
+                if (category != null)
                 {
-                    urunler = urunManager.KategoriUrun(altkategori);
+                    urunler = urunManager.KategoriUrun(category);
                 }
                 else
                 {
                     urunler = urunManager.ParcalariGetir();
                     if (forIndex)
                     {
-                        urunler = urunler.GetRange(urunler.Count - 4, 4);
+                        if(urunler.Count > 4)
+                        {
+                            urunler = urunler.GetRange(urunler.Count - 4, 4);
+                        }
                         urunler.Reverse();
                     }
                 }
@@ -40,8 +43,11 @@ namespace Otomativ_e_ticaret.ViewComponents
             else if (forIndex)
             {
                 urunler = urunManager.KategoriUrun(category);
-                
-                urunler = urunler.GetRange(urunler.Count-4, 4);
+
+                if (urunler.Count > 4)
+                {
+                    urunler = urunler.GetRange(urunler.Count - 4, 4);
+                }
                 urunler.Reverse();
             }
             else if (marka == null)
@@ -50,8 +56,7 @@ namespace Otomativ_e_ticaret.ViewComponents
             }
             else
             {
-                var markasizurunler = urunManager.KategoriUrun(category);
-                urunler = urunManager.KategoriMarkaUrun(markasizurunler, marka);
+                urunler = urunManager.KategoriMarkaUrun(category, marka);
             }
             //Filreleme - siralama
             if (enfazla != 0)

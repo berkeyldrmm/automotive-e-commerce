@@ -9,6 +9,10 @@ namespace EntityLayer.Concrete
 {
     public class Siparis
     {
+        public Siparis()
+        {
+            SiparisDetayi = new HashSet<SiparisDetay>();
+        }
         public int SiparisId { get; set; }
         public string Isim { get; set; }
         public string Soyisim { get; set; }

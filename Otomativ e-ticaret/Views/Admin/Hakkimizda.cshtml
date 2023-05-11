@@ -1,5 +1,133 @@
-﻿@{
+﻿@model Hakkimizda
+
+@{
     Layout = "AdminUILayout";
 }
 
-<h1>Hakkimizda Sayfası Yönetimi</h1>
+<h1>Hakkimizda Sayfası Yönetim</h1>
+
+<div style="margin-bottom:15px;">
+    <button class="btn btn-lg btn-success mb-5" onclick="hakkimizdaekle()">Şablon ekle</button>
+</div>
+
+<div class="ekle" id="hakkimizdaekle">
+    <form asp-action="hakkimizdaekle" asp-controller="admin" method="post" enctype="multipart/form-data">
+        <label asp-for="Metin" class="form-label">Metin</label>
+        <input type="textarea" class="form-control" asp-for="Metin" placeholder="Metin" />
+        
+        <label asp-for="GorselUrl" class="form-label">Görsel</label>
+        <input type="file" class="form-control" name="file" />
+
+        <input type="submit" class="btn btn-outline-success" />
+    </form>
+</div>
+
+<div>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    Hakkimizda ID
+                </th>
+                <th>
+                    Görsel
+                </th>
+                <th>
+                    Metin
+                </th>
+                <th>
+                    Aktiflik
+                </th>
+                <th>
+                    Sil
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var hakkimizdatablo = ViewBag.hakkimizdatable;
+                foreach (var hakkimizdaitem in hakkimizdatablo)
+                {
+                    <tr>
+                        <th scope="row">@hakkimizdaitem.HakkimizdaId</th>
+                        <td><img src="~/@hakkimizdaitem.GorselUrl" height="150"/></td>
+                        <td>@hakkimizdaitem.Metin</td>
+                        @if (hakkimizdaitem.Aktiflik)
+                        {
+                            <td style="width:70px; background-color:green"></td>
+                        }
+                        else
+                        {
+                            <td style="width:200px" class="bg-danger">
+                                <button class="btn btn-outline-success" onclick="aktifEt(@hakkimizdaitem.HakkimizdaId)">
+                                    Aktif et
+                                </button>
+                            </td>
+
+                        }
+                        <td><button class="btn btn-outline-danger btn-sm" onclick="HakkimizdaSilModal(@hakkimizdaitem.HakkimizdaId)">Sil</button></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modal5">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Şablon sil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bu şablon silinsin mi?</p>
+            </div>
+            <div class="modal-footer" id="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modal6">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal aktif et</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bu şablon aktif edilsin mi?</p>
+            </div>
+            <div class="modal-footer" id="modal-footer2">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function HakkimizdaSilModal(id) {
+        $("#modal5").css("display","flex");
+        var html = $("#modal-footer").html();
+        $("#modal-footer").html(`${html}
+            <a href="https://localhost:7121/admin/HakkimizdaSil/${id}" type="button" class="btn btn-primary">Sil</a>
+        `)
+    }
+
+    function hakkimizdaekle() {
+        document.getElementById("hakkimizdaekle").style.display = "flex";
+    }
+
+    function aktifEt(id) {
+        $("#modal6").css("display","flex");
+        var html = $("#modal-footer").html();
+        $("#modal-footer2").html(`${html}
+            <a href="https://localhost:7121/admin/HakkimizdaAktifEt/${id}" type="button" class="btn btn-primary">Aktif et</a>
+        `)
+    }
+</script>

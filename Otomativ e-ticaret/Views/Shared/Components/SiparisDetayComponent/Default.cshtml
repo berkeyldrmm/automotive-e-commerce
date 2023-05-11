@@ -1,0 +1,7 @@
+﻿@using DTOLayer.DTOs.SiparisDetay;
+@model List<SiparisDetayDTO>
+
+@foreach (var siparisdetay in Model)
+{
+    <li>@siparisdetay.UrunId, @siparisdetay.UrunAdi, @siparisdetay.Fiyat TL, @siparisdetay.Miktar adet, Kalan stok= @siparisdetay.Stok</li>
+}

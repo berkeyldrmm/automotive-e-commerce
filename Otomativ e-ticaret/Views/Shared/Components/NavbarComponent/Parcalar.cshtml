@@ -1,0 +1,7 @@
+﻿@model List<Kategori>
+
+@foreach (var kategori in Model)
+{
+    <li><a class="dropdown-item" href="https://localhost:7121/urunler/parca/@kategori.KategoriKod">@kategori.KategoriAdi</a></li>
+}
+

@@ -13,7 +13,7 @@ namespace BusinessLayer.ValidationRules
 	{
 		public SiparisDTOValidator()
 		{
-			RuleFor(x => x.ad).NotNull().NotEmpty().WithMessage("Bu kısım boş geçilemez.");
+			RuleFor(x => x.ad).NotEmpty().WithMessage("Bu kısım boş geçilemez.");
 			RuleFor(x => x.soyad).NotNull().NotEmpty().WithMessage("Bu kısım boş geçilemez.");
 			RuleFor(x => x.adres).NotNull().NotEmpty().WithMessage("Bu kısım boş geçilemez.");
 			RuleFor(x => x.email).NotNull().NotEmpty().WithMessage("Bu kısım boş geçilemez.");

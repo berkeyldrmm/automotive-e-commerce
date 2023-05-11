@@ -1,0 +1,11 @@
+﻿@model List<Marka>
+
+@foreach (var marka in Model)
+{
+    <tr>
+        <th scope="row">@marka.MarkaId</th>
+        <td>@marka.MarkaAdi</td>
+        <td>@marka.MarkaKod</td>
+        <td><button class="btn btn-danger btn-sm" onclick="MarkaSilModal(@marka.MarkaId)">Sil</button></td>
+    </tr>
+}

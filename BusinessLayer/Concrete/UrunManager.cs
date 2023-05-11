@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstraact;
+using DataAccessLayer.Entity_Framework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -43,9 +44,9 @@ namespace BusinessLayer.Concrete
             return UrunDal.KategoriUrun(category);
         }
 
-        public List<Urun> KategoriMarkaUrun(List<Urun> urunler, string marka)
+        public List<Urun> KategoriMarkaUrun(string category, string marka)
         {
-            return UrunDal.KategoriMarkaUrun(urunler, marka);
+            return UrunDal.KategoriMarkaUrun(category, marka);
         }
 
         public List<Urun> FiyatFiltrele(List<Urun> urunler, double enaz, double enfazla)

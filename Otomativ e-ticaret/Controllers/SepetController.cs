@@ -31,6 +31,7 @@ namespace Otomativ_e_ticaret.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.title = "Sepet";
             if (TempData["sepeteeklendi"]!=null)
             {
                 ViewBag.sepeteeklendi = TempData["sepeteeklendi"];
@@ -106,35 +107,37 @@ namespace Otomativ_e_ticaret.Controllers
         }
         public IActionResult SiparisVer()
         {
+            ViewBag.title = "Sipariş";
             ViewBag.siparis = sepet.sepetUrunler;
             return View();
         }
         [HttpPost]
         public IActionResult SiparisVer(SiparisDTO siparisDTO)
         {
-
-			SiparisDTOValidator siparisValidator = new SiparisDTOValidator();
-			ValidationResult validationResult = siparisValidator.Validate(siparisDTO);
+            SiparisDTOValidator siparisValidator = new SiparisDTOValidator();
+            ValidationResult validationResult = siparisValidator.Validate(siparisDTO);
 
             if (validationResult.IsValid)
             {
-				var yenisiparis=SiparisService.SiparisOlustur(sepet, siparisDTO,new Urun(), new HashSet<SiparisDetay>());
+                var yenisiparis = SiparisService.SiparisOlustur(sepet, siparisDTO, new Urun(), new HashSet<SiparisDetay>());
                 SiparisService.TEkle(yenisiparis);
 
-				sepet.sepetUrunler = new List<SepetItemDTO>();
-				return View("SiparisTamamla");
-			}
+                sepet.sepetUrunler = new List<SepetItemDTO>();
+                return View("SiparisTamamla");
+            }
             else
             {
-				foreach (var error in validationResult.Errors)
-				{
-					ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-				}
-				ViewBag.siparis = sepet.sepetUrunler;
-				ViewBag.siparishata = "Siparis Oluşturulmadı.";
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                ViewBag.siparis = sepet.sepetUrunler;
+                ViewBag.siparishata = "Siparis Oluşturulmadı.";
                 return View();
             }
-			
+
+
+
         }
     }
 }

@@ -1,5 +1,76 @@
-﻿@{
+﻿@model Kategori
+
+@{
     Layout = "AdminUILayout";
 }
 
 <h1>Kategoriler</h1>
+
+<div style="margin-bottom:15px;">
+    <button class="btn btn-lg btn-success mb-5" onclick="kategoriekle()">Kategori ekle</button>
+</div>
+
+<div class="ekle" id="kategoriekle">
+    <form asp-action="kategoriekle" asp-controller="admin" method="post" class="w-75">
+        <label asp-for="KategoriAdi" class="form-label">Kategori adı</label>
+        <span asp-validation-for="KategoriAdi"></span>
+        <input type="text" class="form-control" asp-for="KategoriAdi" placeholder="Kategori adı" />
+        <label asp-for="KategoriKod" class="form-label">Fiyat</label>
+        <span asp-validation-for="KategoriKod"></span>
+        <input type="text" class="form-control" asp-for="KategoriKod" placeholder="Kategori kodu" />
+        <label asp-for="UrunCesitId" class="form-label">Ürün çeşidi</label>
+        <span asp-validation-for="UrunCesitId"></span>
+        <select class="form-control" asp-for="UrunCesitId" />
+        <option value=1>Yağ</option>
+        <option value=2>Parça</option>
+
+        <input type="submit" class="btn btn-outline-success mt-4" />
+    </form>
+</div>
+
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">Kategori Id</th>
+            <th scope="col">Kategori Adı</th>
+            <th scope="col">Kategori Kodu</th>
+            <th scope="col">Sil</th>
+        </tr>
+    </thead>
+    <tbody id="govde">
+        @await Component.InvokeAsync("KategoriGetirComponent",new {requestforone=false,requestfromkategorilerpage=true})
+    </tbody>
+</table>
+
+<div class="modal" tabindex="-1" role="dialog" id="modal4">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">KategoriSil</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Kategori silinsin mi?</p>
+      </div>
+      <div class="modal-footer" id="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+
+    function KategoriSilModal(id){
+        $("#modal4").css("display","flex");
+        var html = $("#modal-footer").html();
+        $("#modal-footer").html(`${html}
+            <a href="https://localhost:7121/admin/KategoriSil/${id}" type="button" class="btn btn-primary">Sil</a>
+        `)
+    }
+    function kategoriekle(){
+        $("#kategoriekle").css("display","flex");
+    }
+</script>

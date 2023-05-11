@@ -60,6 +60,30 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Hakkimizda");
                 });
 
+            modelBuilder.Entity("EntityLayer.Concrete.Kategori", b =>
+                {
+                    b.Property<int>("KategoriId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("KategoriAdi")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("KategoriKod")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("UrunCesitId")
+                        .HasColumnType("int");
+
+                    b.HasKey("KategoriId");
+
+                    b.HasIndex("UrunCesitId");
+
+                    b.ToTable("Kategoriler");
+                });
+
             modelBuilder.Entity("EntityLayer.Concrete.Kullanici", b =>
                 {
                     b.Property<int>("KullaniciId")
@@ -81,6 +105,30 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("KullaniciId");
 
                     b.ToTable("Kullanicilar");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Marka", b =>
+                {
+                    b.Property<int>("MarkaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("MarkaAdi")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("MarkaKod")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("UrunCesitId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MarkaId");
+
+                    b.HasIndex("UrunCesitId");
+
+                    b.ToTable("Markalar");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Mesaj", b =>
@@ -200,7 +248,6 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Aciklama")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<double>("Fiyat")
@@ -209,13 +256,11 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("GorselUrl")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Kategori")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("KategoriId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Marka")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("MarkaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Stok")
                         .HasColumnType("int");
@@ -224,13 +269,59 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UstKategori")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("UrunCesitId")
+                        .HasColumnType("int");
 
                     b.HasKey("UrunId");
 
+                    b.HasIndex("KategoriId");
+
+                    b.HasIndex("MarkaId");
+
+                    b.HasIndex("UrunCesitId");
+
                     b.ToTable("Urunler");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.UrunCesit", b =>
+                {
+                    b.Property<int>("UrunCesitId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CesitAdi")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CesitKod")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("UrunCesitId");
+
+                    b.ToTable("UrunCesitleri");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Kategori", b =>
+                {
+                    b.HasOne("EntityLayer.Concrete.UrunCesit", "UrunCesidi")
+                        .WithMany("Kategoriler")
+                        .HasForeignKey("UrunCesitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UrunCesidi");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Marka", b =>
+                {
+                    b.HasOne("EntityLayer.Concrete.UrunCesit", "UrunCesidi")
+                        .WithMany()
+                        .HasForeignKey("UrunCesitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UrunCesidi");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Siparis", b =>
@@ -263,6 +354,43 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Urun");
                 });
 
+            modelBuilder.Entity("EntityLayer.Concrete.Urun", b =>
+                {
+                    b.HasOne("EntityLayer.Concrete.Kategori", "kategori")
+                        .WithMany("Urunler")
+                        .HasForeignKey("KategoriId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EntityLayer.Concrete.Marka", "marka")
+                        .WithMany("Urunler")
+                        .HasForeignKey("MarkaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EntityLayer.Concrete.UrunCesit", "UrunCesidi")
+                        .WithMany("Urunler")
+                        .HasForeignKey("UrunCesitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UrunCesidi");
+
+                    b.Navigation("kategori");
+
+                    b.Navigation("marka");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Kategori", b =>
+                {
+                    b.Navigation("Urunler");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Marka", b =>
+                {
+                    b.Navigation("Urunler");
+                });
+
             modelBuilder.Entity("EntityLayer.Concrete.Siparis", b =>
                 {
                     b.Navigation("SiparisDetayi");
@@ -276,6 +404,13 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("EntityLayer.Concrete.Urun", b =>
                 {
                     b.Navigation("Siparisler");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.UrunCesit", b =>
+                {
+                    b.Navigation("Kategoriler");
+
+                    b.Navigation("Urunler");
                 });
 #pragma warning restore 612, 618
         }

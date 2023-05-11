@@ -14,6 +14,7 @@ namespace EntityLayer.Concrete
         public int UrunId { get; set; }
         public Urun Urun { get; set; }
         public int Miktar { get; set; }
+        public int SiparisId { get; set; }
         public Siparis Siparis { get; set; }
     }
 }

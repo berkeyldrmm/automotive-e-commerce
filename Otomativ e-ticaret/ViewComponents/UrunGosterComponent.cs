@@ -16,7 +16,9 @@ namespace Otomativ_e_ticaret.ViewComponents
         }
         public IViewComponentResult Invoke(int id)
         {
-            ViewBag.urun = UrunManager.TItemGetir(id);
+            var urun = UrunManager.TItemGetir(id);
+            ViewBag.urun = urun;
+            ViewBag.title = urun.UrunAdi;
 			return View();
         }
     }

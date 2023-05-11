@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,16 @@ namespace EntityLayer.Concrete
         public int Stok { get; set; }
         public double Fiyat { get; set; }
         public string? GorselUrl { get; set; }
-        public string UstKategori { get; set; }
-        public string Kategori { get; set; }
-        public string Marka { get; set; }
-        public string Aciklama { get; set; }
-        public ICollection<SiparisDetay> Siparisler { get; set; }
+        [ForeignKey(nameof(UrunCesit))]
+        public int UrunCesitId { get; set; }
+        public UrunCesit UrunCesidi { get; set; }
+        [ForeignKey(nameof(Kategori))]
+        public int KategoriId { get; set; }
+        public Kategori kategori { get; set; }
+        [ForeignKey(nameof(Marka))]
+        public int MarkaId { get; set; }
+        public Marka marka { get; set; }
+        public string? Aciklama { get; set; }
+        public ICollection<SiparisDetay>? Siparisler { get; set; }
     }
 }

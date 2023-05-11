@@ -3,3 +3,80 @@
 }
 
 <h1>Mesajlar</h1>
+
+<div>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    Mesaj ID
+                </th>
+                <th>
+                    Gönderen İsim Soyisim
+                </th>
+                <th>
+                    Gönderen Mail
+                </th>
+                <th>
+                    Gönderen Telefon numarası
+                </th>
+                <th>
+                    Mesaj
+                </th>
+                <th>
+                    Gönderme Zamanı
+                </th>
+                <th>
+                    Sil
+                </th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var mesajlar = ViewBag.mesajlaratable;
+                foreach (var mesaj in mesajlar)
+                {
+                    <tr>
+                        <th scope="row">@mesaj.MesajId</th>
+                        <td>@mesaj.MesajSahibiIsimSoyisim</td>
+                        <td>@mesaj.MesajSahibiMail</td>
+                        <td>@mesaj.MesajSahibiTelefon</td>
+                        <td style="max-width:450px; overflow:hidden;">@mesaj.TextMesaj</td>
+                        <td>@mesaj.MesajZamani</td>
+                        <td><button class="btn btn-outline-danger btn-sm" onclick="MesajSilModal(@mesaj.MesajId)">Sil</button></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modal6">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Mesaj sil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bu mesaj silinsin mi?</p>
+            </div>
+            <div class="modal-footer" id="modal-footer3">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function MesajSilModal(id) {
+        $("#modal6").css("display","flex");
+        var html = $("#modal-footer3").html();
+        $("#modal-footer3").html(`${html}
+            <a href="https://localhost:7121/admin/MesajSil/${id}" type="button" class="btn btn-primary">Sil</a>
+        `)
+    }
+</script>

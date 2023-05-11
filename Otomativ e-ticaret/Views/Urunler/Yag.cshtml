@@ -1,0 +1,33 @@
+﻿<div class="container">
+    <partial name="../PartialViews/_SiralaFiltrelePartial.cshtml" model='new { kategori = ViewBag.UrunCesidi }'>
+    </partial>
+    <div class="row baslik">
+        <div class="col-sm-12">
+             @{
+                if (ViewBag.marka == null)
+                {
+                    @await Component.InvokeAsync("BaslikOlusturComponent", new { kategoriAdi = ViewBag.KategoriAdi });
+                }
+                else
+                {
+                    @await Component.InvokeAsync("BaslikOlusturComponent", new { kategoriAdi = ViewBag.KategoriAdi, marka=ViewBag.marka });
+                }
+            }
+        </div>
+    </div>
+    <div class="products">
+        @if (ViewBag.enfazla == 0 && ViewBag.sira == null)
+        {
+            @await Component.InvokeAsync("UrunComponent",new{uruncesidi=ViewBag.UrunCesidi, category=ViewBag.KategoriAdi, forIndex=false, marka=ViewBag.marka})
+        }
+        else if (ViewBag.sira == null)
+        {
+            @await Component.InvokeAsync("UrunComponent",new{uruncesidi=ViewBag.UrunCesidi, category=ViewBag.KategoriAdi, forIndex=false, marka=ViewBag.marka, enaz=ViewBag.enaz, enfazla=ViewBag.enfazla})
+        }
+        else
+        {
+            @await Component.InvokeAsync("UrunComponent",new{uruncesidi=ViewBag.UrunCesidi, category=ViewBag.KategoriAdi, forIndex=false, marka=ViewBag.marka, enaz=ViewBag.enaz, enfazla=ViewBag.enfazla, sira=ViewBag.sira})
+        }
+
+    </div>
+</div>

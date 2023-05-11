@@ -1,3 +1,10 @@
 ﻿<div class="d-flex justify-content-center" style="flex-grow:1">
-    <a href="https://localhost:7121/urunler/@ViewBag.Category" id="tumunugor">Tümünü gör</a>
+    @if(ViewBag.KategoriAdi != null)
+    {
+        <a href="https://localhost:7121/urunler/@ViewBag.Cesit/@ViewBag.KategoriAdi" id="tumunugor">Tümünü gör</a>
+    }
+    else
+    {
+        <a href="https://localhost:7121/urunler/@ViewBag.Cesit" id="tumunugor">Tümünü gör</a>
+    }
 </div>

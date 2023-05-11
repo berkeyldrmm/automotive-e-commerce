@@ -8,71 +8,76 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.title</title>
-    <!-- BOOTSTRAP STYLES-->
-    <link href="~/assets/css/bootstrap.css" rel="stylesheet" />
-    <!-- FONTAWESOME STYLES-->
-    <link href="~/assets/css/font-awesome.css" rel="stylesheet" />
-    <!-- CUSTOM STYLES-->
-    <link href="~/assets/css/custom.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/adminstyle.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="wrapper">
-        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Yönetim Paneli</a>
+    <div class="container-scroller">
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+                <div class="me-3">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+                        <span class="icon-menu"></span>
+                    </button>
+                </div>
+                <div style="font-size:25px;font-weight:bold;">
+                    Yönetim Paneli
+                </div>
             </div>
 
         </nav>
-        <!-- /. NAV TOP  -->
-        <div>
-            <nav class="navbar-default navbar-side" role="navigation">
-                <div class="sidebar-collapse">
-                    <ul class="nav" id="main-menu">
-                        <li class="text-center">
-                            <img src="~/assets/img/find_user.png" class="user-image img-responsive" height="200" />
-                        </li>
+        <div class="container-fluid page-body-wrapper d-flex">
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://localhost:7121/admin/urunler">
+                            Ürünler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://localhost:7121/admin/kategoriler">
+                             Kategoriler
+                        </a>
 
-                        <li>
-                            <a href="https://localhost:7121/admin/urunler"> Ürünler</a>
-                        </li>
-                        <li>
-                            <a href="https://localhost:7121/admin/kategoriler">Kategoriler</a>
-                        </li>
-                        <li>
-                            <a href="https://localhost:7121/admin/markalar"> Markalar</a>
-                        </li>
-                        <li>
-                            <a href="https://localhost:7121/admin/parcalar"> Parça çeşitleri</a>
-                        </li>
-                        <li>
-                            <a href="https://localhost:7121/admin/adminler"> Adminler</a>
-                        </li>
-                        <li>
-                            <a href="https://localhost:7121/admin/siparisler"> Siparişler</a>
-                        </li>
-                        <li>
-                            <a href="https://localhost:7121/admin/mesajlar">Mesajlar</a>
-                        </li>
-                        <li>
-                            <a href="https://localhost:7121/admin/hakkimizda"> Hakkimizda sayfası Yönetim </a>
-                        </li>
-                    </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://localhost:7121/admin/markalar">
+                             Markalar
+                        </a>
 
-                </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://localhost:7121/admin/adminler">
+                            Adminler
+                        </a>
 
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://localhost:7121/admin/siparisler">
+                            Siparişler
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://localhost:7121/admin/mesajlar">
+                            Mesajlar
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://localhost:7121/admin/hakkimizda">
+                            Hakkimizda sayfası Yönetim
+                        </a>
+                    </li>
+                </ul>
             </nav>
-            
-        </div>
-        <div class="admin_icerik">
-            @RenderBody()
+            <div class="pt-4 px-4" style="width:calc(100% - 220px); margin-left:auto">
+                @RenderBody()
+            </div>
         </div>
     </div>
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <partial name="./_ValidationScriptsPartial"></partial>
 </body>
 </html>

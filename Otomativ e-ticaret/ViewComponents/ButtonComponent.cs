@@ -4,15 +4,14 @@ namespace Otomativ_e_ticaret.ViewComponents
 {
     public class ButtonComponent : ViewComponent
     {
-        public IViewComponentResult Invoke(string category)
+        public IViewComponentResult Invoke(string uruncesidi, string category)
         {
-            var cat = category.Replace(" ", "")
-                .Replace("ğ", "g")
-                .Replace("ç", "c")
-                .Replace("ı","i")
-                .Replace("ö","o")
-                .ToLower();
-            ViewBag.Category = cat;
+            if (uruncesidi != "parca")
+            {
+                ViewBag.KategoriAdi = category;
+            }
+            ViewBag.Cesit = uruncesidi;
+            
             return View();
         }
     }

@@ -1,0 +1,11 @@
+﻿@model List<Kategori>
+
+@foreach (var kategori in Model)
+{
+    <tr>
+        <th scope="row">@kategori.KategoriId</th>
+        <td>@kategori.KategoriAdi</td>
+        <td>@kategori.KategoriKod</td>
+        <td><button class="btn btn-danger btn-sm" onclick="KategoriSilModal(@kategori.KategoriId)">Sil</button></td>
+    </tr>
+}

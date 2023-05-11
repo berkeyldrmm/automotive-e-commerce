@@ -19,6 +19,7 @@ namespace Otomativ_e_ticaret.Controllers
 
 		public IActionResult Index()
 		{
+			ViewBag.title = "İletişim";
 			return View();
 		}
 

@@ -16,7 +16,7 @@ namespace BusinessLayer.ValidationRules
 			RuleFor(m=>m.MesajSahibiMail).EmailAddress().WithMessage("Lütfen geçerli bir mail adresi giriniz.");
 			RuleFor(m=>m.MesajSahibiTelefon).Length(10).WithMessage("Lütfen geçerli bir telefon numarası giriniz.");
 			RuleFor(m=>m.TextMesaj).NotEmpty().WithMessage("Lütfen bu alanı doldurunuz.");
-			RuleFor(m=>m.TextMesaj).MaximumLength(250).WithMessage("Lütfen 250 karakteri geçmeyiniz.");
+			RuleFor(m=>m.TextMesaj).MaximumLength(1000).WithMessage("Lütfen 1000 karakteri geçmeyiniz.");
 		}
 	}
 }

@@ -1,0 +1,6 @@
+﻿@model List<Kategori>
+
+@foreach (var kategori in Model)
+{
+    <option value=@kategori.KategoriId>@kategori.KategoriAdi</option>
+}

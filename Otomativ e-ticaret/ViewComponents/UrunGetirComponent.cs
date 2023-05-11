@@ -13,7 +13,7 @@ namespace Otomativ_e_ticaret.ViewComponents
             urunService = _urunService;
         }
 
-        public IViewComponentResult Invoke(string model)
+        public IViewComponentResult Invoke()
         {
             var urunler=urunService.TListeGetir();
             return View(urunler);

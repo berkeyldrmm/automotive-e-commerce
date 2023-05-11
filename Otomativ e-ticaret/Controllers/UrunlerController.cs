@@ -7,8 +7,8 @@ namespace Otomativ_e_ticaret.Controllers
 {
     public class UrunlerController : Controller
     {
-        [HttpGet("urunler/{kategoriAdi}")]
-        public IActionResult Urunler(string kategoriAdi,[FromQuery] string marka, double enaz, double enfazla, string sira, string altkategori)
+        [HttpGet("urunler/{UrunCesidi}/{KategoriAdi?}")]
+        public IActionResult Urunler(string UrunCesidi, string? KategoriAdi, [FromQuery] string marka, double enaz, double enfazla, string sira)
         {
             ViewBag.enaz = enaz;
             ViewBag.enfazla = enfazla;
@@ -17,11 +17,21 @@ namespace Otomativ_e_ticaret.Controllers
             {
                 ViewBag.marka = marka;
             }
-            if (kategoriAdi == "parca")
+            ViewBag.UrunCesidi = UrunCesidi;
+            ViewBag.KategoriAdi = KategoriAdi;
+            if (UrunCesidi == "parca")
             {
-                ViewBag.altkategori = altkategori;
+                ViewBag.title = "Parçalar";
             }
-            return View(kategoriAdi);
+            else if(marka!= null)
+            {
+                ViewBag.title = KategoriAdi;
+            }
+            else
+            {
+                ViewBag.title=KategoriAdi + " - " + marka;
+            }
+            return View(UrunCesidi);
         }
     }
 }

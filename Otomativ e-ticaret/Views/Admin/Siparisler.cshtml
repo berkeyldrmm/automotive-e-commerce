@@ -1,5 +1,144 @@
-﻿@{
+﻿@model Siparis
+
+@{
     Layout = "AdminUILayout";
 }
 
 <h1>Siparişler</h1>
+
+<div>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    Siparis ID
+                </th>
+                <th>
+                    İsim
+                </th>
+                <th>
+                    Soyisim
+                </th>
+                <th>
+                    Adres
+                </th>
+                <th>
+                    Telefon No.
+                </th>
+                <th>
+                    Mail
+                </th>
+                <th>
+                    Sipariş zamanı
+                </th>
+                <th>
+                    Sipariş İçeriği
+                </th>
+                <th>
+                    Sipariş Tutarı
+                </th>
+                <th>
+                    Siparişin Durumu
+                </th>
+                <th>
+                    Düzenle
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var siparisler = ViewBag.siparisleratable;
+                foreach (var siparis in siparisler)
+                {
+                    <tr>
+                        <th scope="row">@siparis.SiparisId</th>
+                        <td>@siparis.Isim</td>
+                        <td>@siparis.Soyisim</td>
+                        <td>@siparis.Adres</td>
+                        <td>@siparis.TelefonNo</td>
+                        <td>@siparis.Mail</td>
+                        <td>@siparis.SiparisZamani</td>
+                        <td>
+                            <ul class="text-decoration-none">
+                                @await Component.InvokeAsync("SiparisDetayComponent",new {siparisid=siparis.SiparisId})
+                            </ul>
+                        </td>
+                        <td>@siparis.SiparisTutari TL</td>
+                        <td>
+                            @{
+                                var bg = "";
+                                var statusmessage = "";
+                                var buttoncontent = "";
+                                switch (siparis.StatusId)
+                                {
+                                    case 1:
+                                        bg = "bg-light";
+                                        statusmessage = "Yeni sipariş";
+                                        buttoncontent = "Hazırlama başladı";
+                                        break;
+                                    case 2:
+                                        bg = "bg-warning";
+                                        statusmessage = "Hazırlanıyor";
+                                        buttoncontent = "Yola çıktı";
+                                        break;
+                                    case 3:
+                                        bg = "bg-primary";
+                                        statusmessage = "Yolda";
+                                        buttoncontent = "Teslim edildi";
+                                        break;
+                                    case 4:
+                                        bg = "bg-success";
+                                        statusmessage = "Teslim edildi";
+                                        break;
+                                }
+                                <div class="@bg d-flex flex-column justify-content-center align-items-center">
+                                    <div>@statusmessage</div>
+                                    @if (buttoncontent != "")
+                                    {
+                                        <div><a href="https://localhost:7121/admin/StatusUpdate/@siparis.SiparisId" class="btn btn-outline-success">@buttoncontent</a></div>
+                                    }
+                                </div>
+                            }
+                        </td>
+                        <td><button class="btn btn-outline-danger btn-sm" onclick="SiparisSilModal(@siparis.SiparisId, '@statusmessage')">Sil</button></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modal8">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sipariş Sil</h5>
+                <button type="button" class="close" data-dismiss="modal8" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <p>Sipariş silinsin mi?</p>
+                
+            </div>
+            <div class="modal-footer" id="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function SiparisSilModal(id, statusmessage) {
+        $("#modal8").css("display", "flex");
+        var html = $("#modal-footer").html();
+        $("#modal-footer").html(`${html}
+                <a href="https://localhost:7121/admin/SiparisSil/${id}" type="button" class="btn btn-primary">Sil</a>
+        `)
+
+        var html2 = $("#modal-body").html();
+        $("#modal-body").html(`${html2}
+                      <p>Siparişin durumu: ${statusmessage}</p>
+        `)
+    }
+</script>

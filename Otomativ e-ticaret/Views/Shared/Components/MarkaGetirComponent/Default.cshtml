@@ -1,0 +1,6 @@
+﻿@model List<Marka>
+
+@foreach (var marka in Model)
+{
+    <option value=@marka.MarkaId>@marka.MarkaAdi</option>
+}

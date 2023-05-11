@@ -25,11 +25,11 @@ namespace DataAccessLayer.Repository
             await c.SaveChangesAsync();
         }
 
-        public void Sil(T item)
+        public async void Sil(T item)
         {
             using var c = new Context();
             c.Remove(item);
-            c.SaveChangesAsync();
+            await c.SaveChangesAsync();
         }
 
         public List<T> ListeGetir()

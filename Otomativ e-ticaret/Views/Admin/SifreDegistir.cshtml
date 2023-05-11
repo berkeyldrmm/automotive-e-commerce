@@ -1,0 +1,22 @@
+﻿@using DTOLayer.DTOs.SifreDegistir;
+@model SifreDTO
+
+@{
+    Layout = "AdminUILayout";
+}
+
+<h1>Sifre Değiştir</h1>
+
+ <form asp-action="sifredegistir" asp-controller="admin" method="post">
+        <input type="hidden" asp-for="AdminId" value="@ViewBag.AdminId" />
+        <label asp-for="oldpassword" class="form-label">Eski</label>
+        <span asp-validation-for="oldpassword"></span>
+        <input type="password" class="form-control" asp-for="oldpassword" placeholder="Eski şifre" />
+        <label asp-for="newpassword" class="form-label">Yeni şifre</label>
+        <span asp-validation-for="newpassword"></span>
+        <input type="password" class="form-control" asp-for="newpassword" placeholder="Yeni şifre" />
+        <label asp-for="confirmpassword" class="form-label">Yeni şifre tekrar</label>
+        <span asp-validation-for="confirmpassword"></span>
+        <input type="password" class="form-control" asp-for="confirmpassword" placeholder="Yeni şifre tekrar"  />
+        <input type="submit" class="btn btn-outline-success"/>
+    </form>

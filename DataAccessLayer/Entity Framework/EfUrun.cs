@@ -16,13 +16,16 @@ namespace DataAccessLayer.Entity_Framework
         {
             using var c = new Context();
             var urunler= (from urun in c.Urunler
-                   where urun.Kategori == category
-                   select urun).ToList();
+                   where urun.kategori.KategoriKod == category
+                    select urun).ToList();
             return urunler;
         }
-        public List<Urun> KategoriMarkaUrun(List<Urun> urunler,string marka)
+        public List<Urun> KategoriMarkaUrun(string category, string marka)
         {
-            var markaliurunler=urunler.Where(u => u.Marka.ToString().ToLower().Replace(" ","").Replace("ı","i").Replace("ö","o").Replace("ç","c").Replace("ü","u") == marka).ToList();
+            using var c = new Context();
+            var markaliurunler = (from urun in c.Urunler
+                           where urun.kategori.KategoriKod == category && urun.marka.MarkaKod == marka
+                           select urun).ToList();
             return markaliurunler;
         }
 
@@ -50,9 +53,10 @@ namespace DataAccessLayer.Entity_Framework
         {
             using var c = new Context();
             var parcalar= (from urun in c.Urunler
-                           where urun.UstKategori == "Parça"
+                           where urun.UrunCesidi.CesitKod == "parca"
                            select urun).ToList();
             return parcalar;
         }
+
     }
 }

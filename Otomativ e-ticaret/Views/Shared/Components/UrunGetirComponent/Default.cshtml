@@ -10,19 +10,31 @@
             @urun.UrunAdi
         </td>
         <td>
-            @urun.Fiyat
+            @urun.Fiyat TL
         </td>
         <td>
-            @urun.Stok
+            @urun.Stok adet
         </td>
         <td>
-            @urun.Kategori
+            @await Component.InvokeAsync("KategoriGetirComponent",new {id=urun.KategoriId, requestforone=true})
         </td>
         <td>
-            @urun.Marka
+            @await Component.InvokeAsync("MarkaGetirComponent",new {id=urun.MarkaId, requestforone=true})
         </td>
         <td>
-            @urun.UstKategori
+            @{
+                var cesit="";
+                switch (urun.UrunCesitId)
+                {
+                    case 1:
+                        cesit = "Yağ";
+                        break;
+                    case 2 : 
+                        cesit = "Parça";
+                        break;
+                }
+            }
+           @cesit
         </td>
         <td>
             <img src="~/@urun.GorselUrl" height="70" />
@@ -31,8 +43,27 @@
             @urun.Aciklama
         </td>
         <td>
-            <button class="btn btn-sm btn-primary mr-3" data-id="@urun.UrunId">Düzenle</button>
-            <button class="btn btn-sm btn-danger" data-id="@urun.UrunId">Sil</button>
+            <a href="https://localhost:7121/admin/urunduzenle/@urun.UrunId" class="btn btn-sm btn-primary mr-3">Düzenle</a>
+            <button class="btn btn-sm btn-danger" id="sil" onclick="Sil(@urun.UrunId)" data-id="@urun.UrunId">Sil</button>
         </td>
     </tr>
 }
+
+<div class="modal" id="modal3">
+    <div id="modal-content" class="mx-auto my-auto">
+        <button class="modal-close">&times;</button>
+        <h2 style="color:#f5f6f6">Ürünü silinecek</h2>
+        
+        <p>Ürünü silmek istiyor musunuz?</p>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function Sil(id) {
+        $("#modal3").css("display", "block");
+        document.getElementById("modal-content").innerHTML += `
+            <a href="https://localhost:7121/admin/urunsil/${id}" class="btn btn-danger mx-auto">Onayla</a>
+        `
+    }
+</script>

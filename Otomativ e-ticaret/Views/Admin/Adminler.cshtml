@@ -1,5 +1,114 @@
-﻿@{
+﻿@model Admin
+
+@{
     Layout = "AdminUILayout";
 }
 
 <h1>Adminler</h1>
+
+@if (ViewBag.error != null)
+{
+    if (ViewBag.error)
+    {
+        <div class="errordiv alert alert-success">
+            <partial name="../PartialViews/_ErrorPartial" model=@String.Format("İşlem başarılı.")></partial>
+        </div>
+    }
+    else
+    {
+        <div class="errordiv alert alert-danger">
+            <partial name="../PartialViews/_ErrorPartial" model=@String.Format("Şifre yanlış, işlem başarısız.")></partial>
+        </div>
+    }
+
+}
+
+<div style="margin-bottom:15px;">
+    <button class="btn btn-lg btn-success mb-5" onclick="adminekle()">Admin ekle</button>
+</div>
+
+<div class="ekle" id="adminekle">
+    <form asp-action="adminekle" asp-controller="admin" method="post" class="w-75">
+        <label asp-for="KullaniciAdi" class="form-label">Kategori adı</label>
+        <span asp-validation-for="KullaniciAdi"></span>
+        <input type="text" class="form-control" asp-for="KullaniciAdi" placeholder="Kullanıcı adı" />
+
+        <label asp-for="Sifre" class="form-label">Fiyat</label>
+        <span asp-validation-for="Sifre"></span>
+        <input type="password" class="form-control" asp-for="Sifre" placeholder="Şifre" />
+
+        <input type="submit" class="btn btn-outline-success mt-4" />
+    </form>
+</div>
+
+<div>
+    <table class="table w-50 mx-auto">
+        <thead class="table-dark">
+            <tr class="row">
+                <th class="col">
+                    Admin ID
+                </th>
+                <th class="col">
+                    Admin Kıllanıcı Adı
+                </th>
+                <th class="col">
+                    Düzenle
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var adminler = ViewBag.adminleratable;
+                foreach (var admin in adminler)
+                {
+                    <tr class="row">
+                        <th scope="row" class="col">@admin.AdminId</th>
+                        <td class="col">@admin.KullaniciAdi</td>
+                        
+                        <td class="col">
+                            <button class="btn btn-danger btn-sm" onclick="AdminSilModal(@admin.AdminId)">Sil</button>
+                            <a href="https://localhost:7121/admin/SifreDegistir/@admin.AdminId" class="btn btn-outline-primary btn-sm">Şifre Değiştir</a>
+                        </td>
+                        
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modal7">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Admin Sil</h5>
+                <button type="button" class="close" data-dismiss="modal7" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="adminsil" asp-controller="admin" id="form" class="d-block">
+                    <label for="password">Adminin şifresini giriniz.</label>
+                    <input name="sifre" type="password" placeholder="Admin Şifre"/>
+                    <input class="btn btn-danger" type="submit" value="Admin Sil"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function AdminSilModal(id) {
+        $("#modal7").css("display", "flex");
+        var html = $("#form").html();
+        $("#form").html(`${html}
+            <input type="hidden" name="id" value=${id} />
+        `)
+    }
+
+    function adminekle() {
+        $("#adminekle").css("display", "flex");
+    }
+</script>

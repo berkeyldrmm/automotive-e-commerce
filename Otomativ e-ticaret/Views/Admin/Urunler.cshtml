@@ -1,4 +1,5 @@
 ﻿@model Urun
+
 @{
     Layout = "AdminUILayout";
 }
@@ -10,52 +11,72 @@
     td, th{
         text-align:center;
     }
-    #urunekle{
-        margin-bottom:40px;
-        display:none;
-    }
+    
     input{
-        margin-bottom:10px;
+        margin-bottom:30px;
+    }
+    form{
+        width:80%;
     }
 </style>
+
+@if (ViewBag.error != null)
+{
+    if (ViewBag.error)
+    {
+        <div class="errordiv alert alert-success">
+            <partial name="../PartialViews/_ErrorPartial" model=@String.Format("İşlem başarılı.")></partial>
+        </div>
+    }
+    else
+    {
+        <div class="errordiv alert alert-danger">
+            <partial name="../PartialViews/_ErrorPartial" model=@String.Format("İşlem başarısız.")></partial>
+        </div>
+    }
+
+}
 
 <h1>Ürünler</h1>
 
 <div style="margin-bottom:15px;">
     <button class="btn btn-lg btn-success mb-5" onclick="urunekle()">Ürün ekle</button>
 </div>
-<div id="urunekle">
-    <form>
-        <label asp-for="UrunAdi" class="form-label"></label>
+<div class="ekle" id="urunekle">
+    <form asp-action="urunekle" asp-controller="admin" method="post" enctype="multipart/form-data">
+        <label asp-for="UrunAdi" class="form-label">Ürün adı</label>
+        <span asp-validation-for="UrunAdi"></span>
         <input type="text" class="form-control" asp-for="UrunAdi" placeholder="Ürün adı" />
-        <label asp-for="Fiyat" class="form-label"></label>
-        <input type="number" class="form-control" asp-for="Fiyat" />
-        <label asp-for="Stok" class="form-label"></label>
-        <input type="number" class="form-control" asp-for="Stok" />
+        <label asp-for="Fiyat" class="form-label">Fiyat</label>
+        <span asp-validation-for="Fiyat"></span>
+        <input type="number" class="form-control" asp-for="Fiyat" placeholder="Fiyat" />
+        <label asp-for="Stok" class="form-label">Stok</label>
+        <span asp-validation-for="Stok"></span>
+        <input type="number" class="form-control" asp-for="Stok" placeholder="Stok"  />
         <div class="d-flex justify-content-around">
-            <label asp-for="Kategori" class="form-label"></label>
-            <select asp-for="Kategori" class="form-select" placeholder="Kategori">
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+
+            <label asp-for="UrunCesidi" class="form-label mr-2 pt-1">Ürün çeşidi</label>
+            <select asp-for="UrunCesitId" class="form-select w-25" placeholder="Ürün çeşidi">
+                <option value=1>Yağ</option>
+                <option value=2>Parça</option>
             </select>
-            <label asp-for="UstKategori" class="form-label"></label>
-            <select asp-for="UstKategori" class="form-select" placeholder="Ürün çeşidi">
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+
+            <label asp-for="kategori" class="form-label mr-2 pt-1">Kategori</label>
+            <select asp-for="KategoriId" class="form-select w-25" placeholder="Kategori">
+                @await Component.InvokeAsync("KategoriGetirComponent",new {requestforone=false})
             </select>
-            <label asp-for="Marka" class="form-label"></label>
-            <select asp-for="Marka" class="form-select" placeholder="Marka">
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            
+            <label asp-for="marka" class="form-label mr-2 pt-1">Marka</label>
+            <select asp-for="MarkaId" class="form-select w-25" placeholder="Marka">
+                @await Component.InvokeAsync("MarkaGetirComponent",new {requestforone=false})
             </select>
+
         </div>
-        <label asp-for="Aciklama" class="form-label"></label>
+        <label asp-for="Aciklama" class="form-label">Aciklama</label>
         <input type="text" class="form-control" asp-for="Aciklama" placeholder="Aciklama" />
-        <label asp-for="GorselUrl" class="form-label"></label>
-        <input type="file" class="form-control" asp-for="Aciklama" />
+        <label asp-for="GorselUrl" class="form-label">Görsel</label>
+        @*<input type="hidden" name="GorselUrl" />*@
+        <input type="file" class="form-control" name="file" />
         <input type="submit" class="btn btn-outline-success"/>
     </form>
 </div>
@@ -96,7 +117,7 @@
             </tr>
         </thead>
         <tbody>
-            @await Component.InvokeAsync("UrunGetirComponent",new {model="Urun"})
+            @await Component.InvokeAsync("UrunGetirComponent")
         </tbody>
     </table>
 
@@ -104,7 +125,14 @@
 
 <script>
     function urunekle(){
-        document.getElementById("urunekle").style.display="block";
+        document.getElementById("urunekle").style.display="flex";
     }
     
 </script>
+
+@if (ViewBag.urunekle != null)
+{
+    <script>
+        urunekle();
+    </script>
+}

@@ -11,7 +11,7 @@
 </div>
 
 <div class="ekle" id="markaekle">
-    <form asp-action="markaekle" asp-controller="admin" method="post" class="w-75">
+    <form asp-action="markaekle" asp-controller="a_Marka" method="post" class="w-75">
         <label asp-for="MarkaAdi" class="form-label">Kategori adı</label>
         <span asp-validation-for="MarkaAdi"></span>
         <input type="text" class="form-control" asp-for="MarkaAdi" placeholder="Marka adı" />
@@ -38,7 +38,15 @@
         </tr>
     </thead>
     <tbody id="govde">
-        @await Component.InvokeAsync("MarkaGetirComponent",new {requestforone=false,requestfrommarkalarpage=true})
+        @foreach (var marka in ViewBag.Markalar)
+        {
+            <tr>
+                <th scope="row">@marka.MarkaId</th>
+                <td>@marka.MarkaAdi</td>
+                <td>@marka.MarkaKod</td>
+                <td><button class="btn btn-danger btn-sm" onclick="MarkaSilModal(@marka.MarkaId)">Sil</button></td>
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -67,7 +75,7 @@
         $("#modal5").css("display", "flex");
         var html = $("#modal-footer").html();
         $("#modal-footer").html(`${html}
-                    <a href="https://localhost:7121/admin/MarkaSil/${id}" type="button" class="btn btn-primary">Sil</a>
+                    <a href="https://localhost:7121/admin/a_Marka/MarkaSil/${id}" type="button" class="btn btn-primary">Sil</a>
             `)
     }
     function markaekle() {

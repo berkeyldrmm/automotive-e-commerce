@@ -11,7 +11,7 @@
 </div>
 
 <div class="ekle" id="hakkimizdaekle">
-    <form asp-action="hakkimizdaekle" asp-controller="admin" method="post" enctype="multipart/form-data">
+    <form asp-action="hakkimizdaekle" asp-controller="a_Hakkimizda" method="post" enctype="multipart/form-data">
         <label asp-for="Metin" class="form-label">Metin</label>
         <input type="textarea" class="form-control" asp-for="Metin" placeholder="Metin" />
         
@@ -45,7 +45,7 @@
         </thead>
         <tbody>
             @{
-                var hakkimizdatablo = ViewBag.hakkimizdatable;
+                var hakkimizdatablo = ViewBag.HakkimizdaSablonlar;
                 foreach (var hakkimizdaitem in hakkimizdatablo)
                 {
                     <tr>
@@ -115,7 +115,7 @@
         $("#modal5").css("display","flex");
         var html = $("#modal-footer").html();
         $("#modal-footer").html(`${html}
-            <a href="https://localhost:7121/admin/HakkimizdaSil/${id}" type="button" class="btn btn-primary">Sil</a>
+            <a href="https://localhost:7121/admin/a_Hakkimizda/HakkimizdaSil/${id}" type="button" class="btn btn-primary">Sil</a>
         `)
     }
 
@@ -127,7 +127,7 @@
         $("#modal6").css("display","flex");
         var html = $("#modal-footer").html();
         $("#modal-footer2").html(`${html}
-            <a href="https://localhost:7121/admin/HakkimizdaAktifEt/${id}" type="button" class="btn btn-primary">Aktif et</a>
+                <a href="https://localhost:7121/admin/a_Hakkimizda/HakkimizdaAktifEt/${id}" type="button" class="btn btn-primary">Aktif et</a>
         `)
     }
 </script>

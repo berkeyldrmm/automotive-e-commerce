@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Views\Admin\Hakkimizda.cshtml~RF774f3aa6.TMP" />
+    <None Remove="Views\Shared\AdminUILayout.cshtml~RFaec8f11.TMP" />
   </ItemGroup>
 
   <ItemGroup>

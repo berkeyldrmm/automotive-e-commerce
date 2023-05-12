@@ -28,7 +28,7 @@
 </div>
 
 <div class="ekle" id="adminekle">
-    <form asp-action="adminekle" asp-controller="admin" method="post" class="w-75">
+    <form asp-action="adminekle" asp-controller="a_Admin" method="post" class="w-75">
         <label asp-for="KullaniciAdi" class="form-label">Kategori adı</label>
         <span asp-validation-for="KullaniciAdi"></span>
         <input type="text" class="form-control" asp-for="KullaniciAdi" placeholder="Kullanıcı adı" />
@@ -59,7 +59,7 @@
         </thead>
         <tbody>
             @{
-                var adminler = ViewBag.adminleratable;
+                var adminler = ViewBag.Adminler;
                 foreach (var admin in adminler)
                 {
                     <tr class="row">
@@ -68,7 +68,7 @@
                         
                         <td class="col">
                             <button class="btn btn-danger btn-sm" onclick="AdminSilModal(@admin.AdminId)">Sil</button>
-                            <a href="https://localhost:7121/admin/SifreDegistir/@admin.AdminId" class="btn btn-outline-primary btn-sm">Şifre Değiştir</a>
+                            <a href="https://localhost:7121/admin/a_Admin/SifreDegistir/@admin.AdminId" class="btn btn-outline-primary btn-sm">Şifre Değiştir</a>
                         </td>
                         
                     </tr>
@@ -89,7 +89,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-action="adminsil" asp-controller="admin" id="form" class="d-block">
+                <form asp-action="adminsil" asp-controller="a_Admin" id="form" class="d-block">
                     <label for="password">Adminin şifresini giriniz.</label>
                     <input name="sifre" type="password" placeholder="Admin Şifre"/>
                     <input class="btn btn-danger" type="submit" value="Admin Sil"/>

@@ -7,7 +7,7 @@
 
 <h1>Sifre Değiştir</h1>
 
- <form asp-action="sifredegistir" asp-controller="admin" method="post">
+ <form asp-action="sifredegistir" asp-controller="a_Admin" method="post">
         <input type="hidden" asp-for="AdminId" value="@ViewBag.AdminId" />
         <label asp-for="oldpassword" class="form-label">Eski</label>
         <span asp-validation-for="oldpassword"></span>

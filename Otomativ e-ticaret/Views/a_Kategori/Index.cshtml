@@ -11,7 +11,7 @@
 </div>
 
 <div class="ekle" id="kategoriekle">
-    <form asp-action="kategoriekle" asp-controller="admin" method="post" class="w-75">
+    <form asp-action="kategoriekle" asp-controller="a_Kategori" method="post" class="w-75">
         <label asp-for="KategoriAdi" class="form-label">Kategori adı</label>
         <span asp-validation-for="KategoriAdi"></span>
         <input type="text" class="form-control" asp-for="KategoriAdi" placeholder="Kategori adı" />
@@ -38,7 +38,16 @@
         </tr>
     </thead>
     <tbody id="govde">
-        @await Component.InvokeAsync("KategoriGetirComponent",new {requestforone=false,requestfromkategorilerpage=true})
+        @*@await Component.InvokeAsync("KategoriGetirComponent",new {requestforone=false,requestfromkategorilerpage=true})*@
+        @foreach (var kategori in ViewBag.Kategori)
+        {
+            <tr>
+                <th scope="row">@kategori.KategoriId</th>
+                <td>@kategori.KategoriAdi</td>
+                <td>@kategori.KategoriKod</td>
+                <td><button class="btn btn-danger btn-sm" onclick="KategoriSilModal(@kategori.KategoriId)">Sil</button></td>
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -67,7 +76,7 @@
         $("#modal4").css("display","flex");
         var html = $("#modal-footer").html();
         $("#modal-footer").html(`${html}
-            <a href="https://localhost:7121/admin/KategoriSil/${id}" type="button" class="btn btn-primary">Sil</a>
+            <a href="https://localhost:7121/admin/a_Kategori/KategoriSil/${id}" type="button" class="btn btn-primary">Sil</a>
         `)
     }
     function kategoriekle(){

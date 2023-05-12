@@ -43,17 +43,23 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//app.MapControllerRoute(
+//    name: "adminLogIn",
+//    pattern: "admin",
+//    defaults: new { controller = "Admin", action = "LogIn" }
+//);
+
 app.MapControllerRoute(
     name: "adminLogIn",
-    pattern: "admin",
-    defaults: new { controller = "Admin", action = "LogIn" }
+    pattern: "adminGiris",
+    defaults: new { controller = "a_Anasayfa", action = "LogIn" }
 );
 
-//app.MapControllerRoute(
-//    name: "admin",
-//    pattern: "admin/{controller=Home}/{action=Index}/{id?}",
-//    defaults: new { controller = "LogIn", action = "Index" }
-//);
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "admin/{controller=a_Anasayfa}/{action=Index}/{id?}",
+    defaults: new { controller = "a_Anasayfa", action = "Index" }
+);
 
 app.MapControllerRoute(
     name: "default",

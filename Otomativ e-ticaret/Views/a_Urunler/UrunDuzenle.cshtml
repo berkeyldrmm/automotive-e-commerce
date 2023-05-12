@@ -29,7 +29,7 @@
 
 <div class="align-items-center">
     <h1>Ürün Duzenle</h1>
-    <form class="w-75" asp-action="urunduzenle" asp-controller="admin" method="post" enctype="multipart/form-data">
+    <form class="w-75" asp-action="urunduzenle" asp-controller="a_Urunler" method="post" enctype="multipart/form-data">
         <input asp-for="UrunId" type="hidden" value="@Model.UrunId"/>
         <span asp-validation-for="UrunAdi"></span>
         <label asp-for="UrunAdi" class="form-label"></label>

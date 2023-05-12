@@ -34,7 +34,7 @@
         </thead>
         <tbody>
             @{
-                var mesajlar = ViewBag.mesajlaratable;
+                var mesajlar = ViewBag.Mesajlar;
                 foreach (var mesaj in mesajlar)
                 {
                     <tr>
@@ -76,7 +76,7 @@
         $("#modal6").css("display","flex");
         var html = $("#modal-footer3").html();
         $("#modal-footer3").html(`${html}
-            <a href="https://localhost:7121/admin/MesajSil/${id}" type="button" class="btn btn-primary">Sil</a>
+            <a href="https://localhost:7121/admin/a_Mesaj/MesajSil/${id}" type="button" class="btn btn-primary">Sil</a>
         `)
     }
 </script>

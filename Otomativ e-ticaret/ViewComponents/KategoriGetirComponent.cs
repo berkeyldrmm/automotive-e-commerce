@@ -14,7 +14,7 @@ namespace Otomativ_e_ticaret.ViewComponents
             KategoriService = kategoriService;
         }
 
-        public IViewComponentResult Invoke(int id, bool requestforone, bool requestfromkategorilerpage)
+        public IViewComponentResult Invoke(int id, bool requestforone)
         {
             if (requestforone)
             {
@@ -24,15 +24,7 @@ namespace Otomativ_e_ticaret.ViewComponents
             else
             {
                 List<Kategori> kategoriler = KategoriService.TListeGetir();
-                if (requestfromkategorilerpage)
-                {
-                    return View("KategoriListesi", kategoriler);
-                }
-                else
-                {
-                    return View(kategoriler);
-                }
-
+                return View(kategoriler);
             }
         }
     }

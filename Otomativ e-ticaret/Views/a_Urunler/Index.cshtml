@@ -43,7 +43,7 @@
     <button class="btn btn-lg btn-success mb-5" onclick="urunekle()">Ürün ekle</button>
 </div>
 <div class="ekle" id="urunekle">
-    <form asp-action="urunekle" asp-controller="admin" method="post" enctype="multipart/form-data">
+    <form asp-action="urunekle" asp-controller="a_Urunler" method="post" enctype="multipart/form-data">
         <label asp-for="UrunAdi" class="form-label">Ürün adı</label>
         <span asp-validation-for="UrunAdi"></span>
         <input type="text" class="form-control" asp-for="UrunAdi" placeholder="Ürün adı" />
@@ -117,17 +117,81 @@
             </tr>
         </thead>
         <tbody>
-            @await Component.InvokeAsync("UrunGetirComponent")
+            @foreach (var urun in ViewBag.Urunler)
+            {
+                <tr>
+                    <td>
+                        @urun.UrunId
+                    </td>
+                    <td>
+                        @urun.UrunAdi
+                    </td>
+                    <td>
+                        @urun.Fiyat TL
+                    </td>
+                    <td>
+                        @urun.Stok adet
+                    </td>
+                    <td>
+                        @await Component.InvokeAsync("KategoriGetirComponent",new {id=urun.KategoriId, requestforone=true})
+                    </td>
+                    <td>
+                        @await Component.InvokeAsync("MarkaGetirComponent",new {id=urun.MarkaId, requestforone=true})
+                    </td>
+                    <td>
+                        @{
+                            var cesit = "";
+                            switch (urun.UrunCesitId)
+                            {
+                                case 1:
+                                    cesit = "Yağ";
+                                    break;
+                                case 2:
+                                    cesit = "Parça";
+                                    break;
+                            }
+                        }
+                        @cesit
+                    </td>
+                    <td>
+                        <img src="~/@urun.GorselUrl" height="70" />
+                    </td>
+                    <td>
+                        @urun.Aciklama
+                    </td>
+                    <td>
+                        <a href="https://localhost:7121/admin/a_Urunler/urunduzenle/@urun.UrunId" class="btn btn-sm btn-primary mr-3">Düzenle</a>
+                        <button class="btn btn-sm btn-danger" id="sil" onclick="Sil(@urun.UrunId)" data-id="@urun.UrunId">Sil</button>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 
 </div>
 
+<div class="modal" id="modal3">
+    <div id="modal-content" class="mx-auto my-auto">
+        <button class="modal-close">&times;</button>
+        <h2 style="color:#f5f6f6">Ürünü silinecek</h2>
+
+        <p>Ürünü silmek istiyor musunuz?</p>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
 <script>
     function urunekle(){
         document.getElementById("urunekle").style.display="flex";
     }
-    
+
+    function Sil(id) {
+        $("#modal3").css("display", "block");
+        document.getElementById("modal-content").innerHTML += `
+                    <a href="https://localhost:7121/admin/a_Urunler/urunsil/${id}" class="btn btn-danger mx-auto">Onayla</a>
+            `
+    }
 </script>
 
 @if (ViewBag.urunekle != null)

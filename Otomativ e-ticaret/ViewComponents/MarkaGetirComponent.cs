@@ -13,7 +13,7 @@ namespace Otomativ_e_ticaret.ViewComponents
             MarkaService = markaService;
         }
 
-        public IViewComponentResult Invoke(int id, bool requestforone, bool requestfrommarkalarpage)
+        public IViewComponentResult Invoke(int id, bool requestforone)
         {
             if (requestforone)
             {
@@ -23,15 +23,7 @@ namespace Otomativ_e_ticaret.ViewComponents
             else
             {
                 var markalar = MarkaService.TListeGetir();
-                if (requestfrommarkalarpage)
-                {
-                    return View("MarkaListesi", markalar);
-                }
-                else
-                {
-                    return View(markalar);
-                }
-               
+                return View(markalar);
             }
         }
     }

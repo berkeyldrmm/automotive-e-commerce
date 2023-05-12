@@ -47,7 +47,7 @@
         </thead>
         <tbody>
             @{
-                var siparisler = ViewBag.siparisleratable;
+                var siparisler = ViewBag.Siparisler;
                 foreach (var siparis in siparisler)
                 {
                     <tr>
@@ -95,7 +95,7 @@
                                     <div>@statusmessage</div>
                                     @if (buttoncontent != "")
                                     {
-                                        <div><a href="https://localhost:7121/admin/StatusUpdate/@siparis.SiparisId" class="btn btn-outline-success">@buttoncontent</a></div>
+                                        <div><a href="https://localhost:7121/admin/a_Siparis/StatusUpdate/@siparis.SiparisId" class="btn btn-outline-success">@buttoncontent</a></div>
                                     }
                                 </div>
                             }
@@ -133,7 +133,7 @@
         $("#modal8").css("display", "flex");
         var html = $("#modal-footer").html();
         $("#modal-footer").html(`${html}
-                <a href="https://localhost:7121/admin/SiparisSil/${id}" type="button" class="btn btn-primary">Sil</a>
+                <a href="https://localhost:7121/admin/a_Siparis/SiparisSil/${id}" type="button" class="btn btn-primary">Sil</a>
         `)
 
         var html2 = $("#modal-body").html();

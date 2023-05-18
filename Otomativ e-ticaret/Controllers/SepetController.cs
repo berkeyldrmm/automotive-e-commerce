@@ -105,6 +105,7 @@ namespace Otomativ_e_ticaret.Controllers
             sepetManager.SepetiBosalt();
             return RedirectToAction("Index");
         }
+
         public IActionResult SiparisVer()
         {
             ViewBag.title = "Sipariş";
@@ -114,10 +115,7 @@ namespace Otomativ_e_ticaret.Controllers
         [HttpPost]
         public IActionResult SiparisVer(SiparisDTO siparisDTO)
         {
-            SiparisDTOValidator siparisValidator = new SiparisDTOValidator();
-            ValidationResult validationResult = siparisValidator.Validate(siparisDTO);
-
-            if (validationResult.IsValid)
+            if (ModelState.IsValid)
             {
                 var yenisiparis = SiparisService.SiparisOlustur(sepet, siparisDTO, new Urun(), new HashSet<SiparisDetay>());
                 SiparisService.TEkle(yenisiparis);
@@ -127,16 +125,10 @@ namespace Otomativ_e_ticaret.Controllers
             }
             else
             {
-                foreach (var error in validationResult.Errors)
-                {
-                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                }
                 ViewBag.siparis = sepet.sepetUrunler;
                 ViewBag.siparishata = "Siparis Oluşturulmadı.";
                 return View();
             }
-
-
 
         }
     }

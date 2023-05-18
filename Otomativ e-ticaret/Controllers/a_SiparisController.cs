@@ -1,8 +1,10 @@
 ﻿using BusinessLayer.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Otomativ_e_ticaret.Controllers
 {
+    [Authorize]
     public class a_SiparisController : Controller
     {
         public ISiparisService SiparisService { get; set; }

@@ -10,8 +10,8 @@ namespace EntityLayer.Concrete
     public class Marka
     {
         public int MarkaId { get; set; }
-        public string MarkaAdi { get; set; }
-        public string MarkaKod { get; set; }
+        public string? MarkaAdi { get; set; }
+        public string? MarkaKod { get; set; }
         [ForeignKey(nameof(UrunCesit))]
         public int UrunCesitId { get; set; }
         public UrunCesit? UrunCesidi { get; set; }

@@ -1,9 +1,11 @@
 ﻿using BusinessLayer.Abstract;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Otomativ_e_ticaret.Controllers
 {
+    [Authorize]
     public class a_HakkimizdaController : Controller
     {
         public IHakkimizdaService HakkimizdaService { get; set; }

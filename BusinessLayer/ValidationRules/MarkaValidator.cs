@@ -12,8 +12,8 @@ namespace BusinessLayer.ValidationRules
     {
         public MarkaValidator()
         {
-            RuleFor(m => m.MarkaAdi).NotEmpty().WithMessage("Lütfen bir marka adı giriniz.");
-            RuleFor(m => m.MarkaKod).NotEmpty().WithMessage("Marka için lütfen bir kod girin.");
+            //RuleFor(m => m.MarkaAdi).NotEmpty().WithMessage("Lütfen bir marka adı giriniz.");
+            //RuleFor(m => m.MarkaKod).NotEmpty().WithMessage("Marka için lütfen bir kod girin.");
         }
     }
 }

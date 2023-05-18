@@ -1,10 +1,12 @@
 ﻿using BusinessLayer.Abstract;
 using BusinessLayer.ValidationRules;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Otomativ_e_ticaret.Controllers
 {
+    [Authorize]
     public class a_UrunlerController : Controller
     {
         public IUrunService UrunService { get; set; }
@@ -32,11 +34,11 @@ namespace Otomativ_e_ticaret.Controllers
         }
 
         [HttpPost]
-        public IActionResult UrunEkle(Urun urun, IFormFile file)
+        public IActionResult UrunEkle(Urun urun, IFormFile? file)
         {
             ViewBag.title = "Ürün ekle";
-            var urunvalidation = UrunValidator.Validate(urun);
-            if (urunvalidation.IsValid)
+            //var urunvalidation = UrunValidator.Validate(urun);
+            if (ModelState.IsValid)
             {
                 if (file != null)
                 {

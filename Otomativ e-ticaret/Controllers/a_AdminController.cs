@@ -1,10 +1,14 @@
 ﻿using BusinessLayer.Abstract;
+using BusinessLayer.ValidationRules;
 using DTOLayer.DTOs.SifreDegistir;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Otomativ_e_ticaret.Models;
 
 namespace Otomativ_e_ticaret.Controllers
 {
+    [Authorize]
     public class a_AdminController : Controller
     {
         public IAdminService AdminService { get; set; }
@@ -20,14 +24,31 @@ namespace Otomativ_e_ticaret.Controllers
             {
                 ViewBag.error = TempData["error"];
             }
+            if (TempData["fromadminekle"]!=null)
+            {
+                ViewBag.fromadminekle = TempData["fromadminekle"];
+            }
             ViewBag.Adminler = AdminService.TListeGetir();
             return View();
         }
 
         [HttpPost]
-        public IActionResult AdminEkle(Admin admin)
+        public IActionResult AdminEkle(AdminViewModel adminViewModel)
         {
-            AdminService.TEkle(admin);
+            if (ModelState.IsValid)
+            {
+                var admin = new Admin()
+                {
+                    KullaniciAdi = adminViewModel.KullaniciAdi,
+                    Sifre = adminViewModel.Sifre
+                };
+                AdminService.TEkle(admin);
+            }
+            else
+            {
+                TempData["fromadminekle"] = true;
+            }
+            
             return RedirectToAction("index");
         }
 
@@ -38,15 +59,15 @@ namespace Otomativ_e_ticaret.Controllers
         }
 
         [HttpPost]
-        public IActionResult SifreDegistir(SifreDTO sifreDTO)
+        public IActionResult SifreDegistir(SifreViewModel SifreViewModel)
         {
 
             if (ModelState.IsValid)
             {
-                var admin = AdminService.TItemGetir(int.Parse(sifreDTO.AdminId));
-                if (admin.Sifre == sifreDTO.oldpassword)
+                var admin = AdminService.TItemGetir(int.Parse(SifreViewModel.AdminId));
+                if (admin.Sifre == SifreViewModel.oldpassword)
                 {
-                    admin.Sifre = sifreDTO.newpassword;
+                    admin.Sifre = SifreViewModel.newpassword;
                     AdminService.TGunceller(admin);
                     TempData["error"] = true;
                 }

@@ -9,6 +9,6 @@ namespace DTOLayer.DTOs.Sepet
 	public class UrunDTO
 	{
 		public int UrunId { get; set; }
-		public string miktar { get; set;}
+		public string miktar { get; set; }
 	}
 }

@@ -3,6 +3,7 @@ using System;
 using DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230517170639_mig-19")]
+    partial class mig19
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,8 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<string>("Sifre")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
 
                     b.HasKey("AdminId");
 
@@ -114,9 +117,11 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("MarkaAdi")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("MarkaKod")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("UrunCesitId")

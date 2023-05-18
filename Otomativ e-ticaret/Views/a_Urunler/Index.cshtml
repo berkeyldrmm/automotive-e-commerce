@@ -44,14 +44,14 @@
 </div>
 <div class="ekle" id="urunekle">
     <form asp-action="urunekle" asp-controller="a_Urunler" method="post" enctype="multipart/form-data">
-        <label asp-for="UrunAdi" class="form-label">Ürün adı</label>
         <span asp-validation-for="UrunAdi"></span>
+        <label asp-for="UrunAdi" class="form-label">Ürün adı</label>
         <input type="text" class="form-control" asp-for="UrunAdi" placeholder="Ürün adı" />
-        <label asp-for="Fiyat" class="form-label">Fiyat</label>
         <span asp-validation-for="Fiyat"></span>
+        <label asp-for="Fiyat" class="form-label">Fiyat</label>
         <input type="number" class="form-control" asp-for="Fiyat" placeholder="Fiyat" />
-        <label asp-for="Stok" class="form-label">Stok</label>
         <span asp-validation-for="Stok"></span>
+        <label asp-for="Stok" class="form-label">Stok</label>
         <input type="number" class="form-control" asp-for="Stok" placeholder="Stok"  />
         <div class="d-flex justify-content-around">
 

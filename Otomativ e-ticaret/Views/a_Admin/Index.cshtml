@@ -1,4 +1,4 @@
-﻿@model Admin
+﻿@model AdminViewModel
 
 @{
     Layout = "AdminUILayout";
@@ -29,11 +29,11 @@
 
 <div class="ekle" id="adminekle">
     <form asp-action="adminekle" asp-controller="a_Admin" method="post" class="w-75">
-        <label asp-for="KullaniciAdi" class="form-label">Kategori adı</label>
+        <label asp-for="KullaniciAdi" class="form-label">Kullanıcı adı</label>
         <span asp-validation-for="KullaniciAdi"></span>
         <input type="text" class="form-control" asp-for="KullaniciAdi" placeholder="Kullanıcı adı" />
 
-        <label asp-for="Sifre" class="form-label">Fiyat</label>
+        <label asp-for="Sifre" class="form-label">Şifre</label>
         <span asp-validation-for="Sifre"></span>
         <input type="password" class="form-control" asp-for="Sifre" placeholder="Şifre" />
 
@@ -112,3 +112,9 @@
         $("#adminekle").css("display", "flex");
     }
 </script>
+
+@if(ViewBag.fromadminekle!=null){
+    <script>
+        adminekle();
+    </script>
+}

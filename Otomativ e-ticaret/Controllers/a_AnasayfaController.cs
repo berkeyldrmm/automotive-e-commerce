@@ -1,19 +1,22 @@
 ﻿using BusinessLayer.Abstract;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Otomativ_e_ticaret.Models;
+using System.Security.Claims;
 
 namespace Otomativ_e_ticaret.Controllers
 {
     public class a_AnasayfaController : Controller
     {
         public IAdminService AdminService { get; set; }
-
         public a_AnasayfaController(IAdminService adminService)
         {
             AdminService = adminService;
         }
-
+        [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -27,14 +30,20 @@ namespace Otomativ_e_ticaret.Controllers
         }
 
         [HttpPost]
-        public IActionResult LogIn(Admin admin)
+        public async Task<IActionResult> LogIn(Admin admin)
         {
             try
             {
                 if (AdminService.AdminGirisKontrol(admin))
                 {
-                    TempData["izin"] = true;
-                    return RedirectToAction("Index");
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name,admin.KullaniciAdi)
+                    };
+                    var adminidentity=new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    ClaimsPrincipal principal= new ClaimsPrincipal(adminidentity);
+                    await HttpContext.SignInAsync(principal);
+                    return RedirectToAction("Index","a_Anasayfa");
                 }
                 else
                 {

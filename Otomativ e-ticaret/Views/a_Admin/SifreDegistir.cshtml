@@ -1,5 +1,5 @@
 ﻿@using DTOLayer.DTOs.SifreDegistir;
-@model SifreDTO
+@model SifreViewModel
 
 @{
     Layout = "AdminUILayout";
@@ -9,14 +9,14 @@
 
  <form asp-action="sifredegistir" asp-controller="a_Admin" method="post">
         <input type="hidden" asp-for="AdminId" value="@ViewBag.AdminId" />
-        <label asp-for="oldpassword" class="form-label">Eski</label>
         <span asp-validation-for="oldpassword"></span>
+        <label asp-for="oldpassword" class="form-label">Eski şifre</label>
         <input type="password" class="form-control" asp-for="oldpassword" placeholder="Eski şifre" />
-        <label asp-for="newpassword" class="form-label">Yeni şifre</label>
         <span asp-validation-for="newpassword"></span>
+        <label asp-for="newpassword" class="form-label">Yeni şifre</label>
         <input type="password" class="form-control" asp-for="newpassword" placeholder="Yeni şifre" />
-        <label asp-for="confirmpassword" class="form-label">Yeni şifre tekrar</label>
         <span asp-validation-for="confirmpassword"></span>
+        <label asp-for="confirmpassword" class="form-label">Yeni şifre tekrar</label>
         <input type="password" class="form-control" asp-for="confirmpassword" placeholder="Yeni şifre tekrar"  />
         <input type="submit" class="btn btn-outline-success"/>
     </form>

@@ -8,6 +8,7 @@ using DTOLayer.DTOs.Sepet;
 using EntityLayer.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,12 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddAuthentication(
+    CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(x =>
+    {
+        x.LoginPath = "/adminGiris";
+    });
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddSingleton<IUrunService>(obj => new UrunManager(new EfUrun()));
@@ -31,7 +38,6 @@ builder.Services.AddSingleton<ISiparisDetayService>(obj => new SiparisDetayManag
 builder.Services.Add(new ServiceDescriptor(typeof(SepetDTO), new SepetDTO()));
 builder.Services.AddSingleton<ISiparisService>(obj=>new SiparisManager(new EfSiparis(),new UrunManager(new EfUrun())));
 
-
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -43,11 +49,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//app.MapControllerRoute(
-//    name: "adminLogIn",
-//    pattern: "admin",
-//    defaults: new { controller = "Admin", action = "LogIn" }
-//);
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "adminLogIn",

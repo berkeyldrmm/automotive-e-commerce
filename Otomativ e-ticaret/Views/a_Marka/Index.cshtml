@@ -7,15 +7,15 @@
 <h1>Markalar</h1>
 
 <div style="margin-bottom:15px;">
-    <button class="btn btn-lg btn-success mb-5" onclick="markaekle()">Kategori ekle</button>
+    <button class="btn btn-lg btn-success mb-5" onclick="markaekle()">Marka ekle</button>
 </div>
 
 <div class="ekle" id="markaekle">
     <form asp-action="markaekle" asp-controller="a_Marka" method="post" class="w-75">
-        <label asp-for="MarkaAdi" class="form-label">Kategori adı</label>
+        <label asp-for="MarkaAdi" class="form-label">Marka adı</label>
         <span asp-validation-for="MarkaAdi"></span>
         <input type="text" class="form-control" asp-for="MarkaAdi" placeholder="Marka adı" />
-        <label asp-for="MarkaKod" class="form-label">Fiyat</label>
+        <label asp-for="MarkaKod" class="form-label">Marka kodu</label>
         <span asp-validation-for="MarkaKod"></span>
         <input type="text" class="form-control" asp-for="MarkaKod" placeholder="Marka kodu" />
         <label asp-for="UrunCesitId" class="form-label">Ürün çeşidi</label>

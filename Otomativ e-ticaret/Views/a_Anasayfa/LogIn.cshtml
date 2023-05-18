@@ -73,6 +73,10 @@
           
         }
 
+        label{
+            color:#ffffff;
+        }
+
         .login-username, .login-password {
           background: transparent;
           border: 0 solid;
@@ -122,9 +126,11 @@
         </div>
     }
     <form class="login-form w-50" asp-action="login" asp-controller="a_anasayfa">
-        <span asp-validation-for="KullaniciAdi"class="mx-auto"></span>
+        <div><span asp-validation-for="KullaniciAdi" class="mx-auto"></span></div>
+        <label asp-for="KullaniciAdi" class="form-label">Kullanıcı Adı</label>
         <input type="text" class="login-username text-center" asp-for="KullaniciAdi" autofocus="true" required="true" placeholder="Kullanıcı Adı" />
-        <span asp-validation-for="Sifre" class="mx-auto"></span>
+        <div><span asp-validation-for="Sifre" class="mx-auto"></span></div>
+        <label asp-for="Sifre" class="form-label">Şifre</label>
         <input type="password" class="login-password text-center" asp-for="Sifre" required="true" placeholder="Şifre" />
         <input type="submit" name="Login" value="Giriş" class="login-submit" />
     </form>

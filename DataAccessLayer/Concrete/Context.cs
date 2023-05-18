@@ -26,7 +26,8 @@ namespace DataAccessLayer.Concrete
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("Server=localhost;Database=otomation;Uid=root;Pwd=Mysqlpassword3444;", new MySqlServerVersion("6.0.0"));
+            //"Server=localhost;Database=otomation;Uid=root;Pwd=Mysqlpassword3444;"
+            optionsBuilder.UseMySql("Server=localhost;Database=otomation;Uid=root;", new MySqlServerVersion("6.0.0"));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

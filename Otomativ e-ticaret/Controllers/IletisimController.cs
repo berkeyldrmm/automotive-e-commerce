@@ -30,9 +30,8 @@ namespace Otomativ_e_ticaret.Controllers
 			MesajValidator mesajValidator = new MesajValidator();
 			ValidationResult validationResult = mesajValidator.Validate(mesaj);
 
-			if(validationResult.IsValid) 
+			if(validationResult.IsValid)
 			{
-				Console.WriteLine(ModelState);
 				mesajManager.TEkle(mesaj);
 				ViewBag.mesaj = "Form gönderildi.";
 			}
@@ -42,10 +41,8 @@ namespace Otomativ_e_ticaret.Controllers
 				{
 					ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
 				}
-				Console.WriteLine(ModelState);
 				ViewBag.mesaj = "Form gönderilmedi";
 			}
-
 
 			return View();
 		}
